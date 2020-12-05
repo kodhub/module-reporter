@@ -11,6 +11,9 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        
+    },
+    "require-dev": {
         "kodhub/module-core": "master"
     },
     "repositories": [
