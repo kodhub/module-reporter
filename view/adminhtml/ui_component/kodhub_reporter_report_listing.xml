@@ -1,192 +1,158 @@
 <?xml version="1.0" ?>
-<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-	<argument name="data" xsi:type="array">
-		<item name="js_config" xsi:type="array">
-			<item name="provider" xsi:type="string">kodhub_reporter_report_listing.kodhub_reporter_report_listing_data_source</item>
-		</item>
-	</argument>
-	<settings>
-		<spinner>kodhub_reporter_report_columns</spinner>
-		<deps>
-			<dep>kodhub_reporter_report_listing.kodhub_reporter_report_listing_data_source</dep>
-		</deps>
-		<buttons>
-			<button name="add">
-				<url path="*/*/new"/>
-				<class>primary</class>
-				<label translate="true">Add new Report</label>
-			</button>
-		</buttons>
-	</settings>
-	<dataSource component="Magento_Ui/js/grid/provider" name="kodhub_reporter_report_listing_data_source">
-		<settings>
-			<updateUrl path="mui/index/render"/>
-		</settings>
-		<aclResource>Kodhub_Reporter::Report</aclResource>
-		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="kodhub_reporter_report_listing_data_source">
-			<settings>
-				<requestFieldName>id</requestFieldName>
-				<primaryFieldName>report_id</primaryFieldName>
-			</settings>
-		</dataProvider>
-	</dataSource>
-	<listingToolbar name="listing_top">
-		<settings>
-			<sticky>true</sticky>
-		</settings>
-		<bookmark name="bookmarks"/>
-		<columnsControls name="columns_controls"/>
-		<filters name="listing_filters"/>
-		<paging name="listing_paging"/>
-	</listingToolbar>
-	<columns name="kodhub_reporter_report_columns">
-		<settings>
-			<editorConfig>
-				<param name="selectProvider" xsi:type="string">kodhub_reporter_report_listing.kodhub_reporter_report_listing.kodhub_reporter_report_columns.ids</param>
-				<param name="enabled" xsi:type="boolean">true</param>
-				<param name="indexField" xsi:type="string">report_id</param>
-				<param name="clientConfig" xsi:type="array">
-					<item name="saveUrl" path="kodhub_reporter/Report/inlineEdit" xsi:type="url"/>
-					<item name="validateBeforeSave" xsi:type="boolean">false</item>
-				</param>
-			</editorConfig>
-			<childDefaults>
-				<param name="fieldAction" xsi:type="array">
-					<item name="provider" xsi:type="string">kodhub_reporter_report_listing.kodhub_reporter_report_listing.kodhub_reporter_report_columns_editor</item>
-					<item name="target" xsi:type="string">startEdit</item>
-					<item name="params" xsi:type="array">
-						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
-						<item name="1" xsi:type="boolean">true</item>
-					</item>
-				</param>
-			</childDefaults>
-		</settings>
-		<selectionsColumn name="ids">
-			<settings>
-				<indexField>report_id</indexField>
-			</settings>
-		</selectionsColumn>
-		<column name="report_id">
-			<settings>
-				<filter>text</filter>
-				<sorting>asc</sorting>
-				<label translate="true">ID</label>
-			</settings>
-		</column>
-		<column name="name">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">name</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<actionsColumn class="Kodhub\Reporter\Ui\Component\Listing\Column\ReportActions" name="actions">
-			<settings>
-				<indexField>report_id</indexField>
-				<resizeEnabled>false</resizeEnabled>
-				<resizeDefaultWidth>107</resizeDefaultWidth>
-			</settings>
-		</actionsColumn>
-		<column name="query">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">query</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="cron_status">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">cron_status</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="cron_email_list">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">cron_email_list</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="cron_expression">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">cron_expression</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="description">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">description</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="status">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">status</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="created_at">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">created_at</label>
-				<editor>
-					<editorType>date</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="updated_at">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">updated_at</label>
-				<editor>
-					<editorType>date</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-	</columns>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">
+                kodhub_reporter_report_listing.kodhub_reporter_report_listing_data_source
+            </item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>kodhub_reporter_report_columns</spinner>
+        <deps>
+            <dep>kodhub_reporter_report_listing.kodhub_reporter_report_listing_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Add new Report</label>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource component="Magento_Ui/js/grid/provider" name="kodhub_reporter_report_listing_data_source">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Kodhub_Reporter::Report</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
+                      name="kodhub_reporter_report_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>report_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="kodhub_reporter_report_columns">
+        <settings>
+            <editorConfig>
+                <param name="selectProvider" xsi:type="string">
+                    kodhub_reporter_report_listing.kodhub_reporter_report_listing.kodhub_reporter_report_columns.ids
+                </param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="indexField" xsi:type="string">report_id</param>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" path="kodhub_reporter/Report/inlineEdit" xsi:type="url"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">
+                        kodhub_reporter_report_listing.kodhub_reporter_report_listing.kodhub_reporter_report_columns_editor
+                    </item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>report_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="report_id">
+            <settings>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="description">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Description</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="status">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Status</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="cron_status">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Cron Status</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="cron_expression">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Cron Expression</label>
+            </settings>
+        </column>
+        <column name="last_run_date">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Last Run Date</label>
+            </settings>
+        </column>
+        <column name="updated_at">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Updated At</label>
+            </settings>
+        </column>
+        <actionsColumn class="Kodhub\Reporter\Ui\Component\Listing\Column\ReportActions" name="zzactions">
+            <settings>
+                <indexField>report_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+    </columns>
 </listing>
