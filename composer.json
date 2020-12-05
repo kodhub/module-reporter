@@ -16,20 +16,6 @@
     "require-dev": {
         "kodhub/module-core": "dev-master"
     },
-    "repositories": [
-        {
-            "type":"package",
-            "package": {
-                "name": "kodhub/module-core",
-                "version":"master",
-                "source": {
-                    "url": "git@github.com:kodhub/module-core.git",
-                    "type": "git",
-                    "reference":"master"
-                }
-            }
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Kodhub\\Reporter\\": ""
