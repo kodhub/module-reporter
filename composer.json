@@ -11,8 +11,22 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "kodhub/module-core": "~1.0.1"
+        "kodhub/module-core": "master"
     },
+    "repositories": [
+        {
+            "type":"package",
+            "package": {
+                "name": "kodhub/module-core",
+                "version":"master",
+                "source": {
+                    "url": "git@github.com:kodhub/module-core.git",
+                    "type": "git",
+                    "reference":"master"
+                }
+            }
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Kodhub\\Reporter\\": ""
