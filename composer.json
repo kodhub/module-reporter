@@ -11,10 +11,10 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        
+
     },
     "require-dev": {
-        "kodhub/module-core": "master"
+        "kodhub/module-core": "dev-master"
     },
     "repositories": [
         {
