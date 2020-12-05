@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table comment="kodhub_reporter_report Table" engine="innodb" name="kodhub_reporter_report" resource="default">
+		<column comment="Entity Id" identity="true" name="report_id" nullable="false" padding="6" unsigned="true" xsi:type="smallint"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="report_id"/>
+		</constraint>
+		<column length="250" name="name" nullable="false" xsi:type="varchar"/>
+		<column length="65000" name="query" nullable="false" xsi:type="text"/>
+		<column default="0" name="cron_status" nullable="false" unsigned="true" xsi:type="boolean"/>
+		<column length="65000" name="cron_email_list" nullable="true" xsi:type="text"/>
+		<column default="00 04 * * *" length="255" name="cron_expression" nullable="true" xsi:type="varchar"/>
+		<column length="255" name="description" nullable="true" xsi:type="varchar"/>
+		<column default="0" name="status" nullable="true" xsi:type="boolean"/>
+		<column name="created_at" nullable="true" xsi:type="timestamp"/>
+		<column name="updated_at" nullable="true" xsi:type="timestamp"/>
+	</table>
+	<table comment="kodhub_reporter_log Table" engine="innodb" name="kodhub_reporter_log" resource="default">
+		<column comment="Entity Id" identity="true" name="log_id" nullable="false" padding="6" unsigned="true" xsi:type="smallint"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="log_id"/>
+		</constraint>
+		<column length="255" name="title" nullable="false" xsi:type="varchar"/>
+		<column length="255" name="message" nullable="false" xsi:type="varchar"/>
+		<column default="0" name="error" nullable="false" xsi:type="boolean"/>
+		<column length="65000" name="trace" nullable="true" xsi:type="text"/>
+		<column length="65000" name="query" nullable="false" xsi:type="text"/>
+		<column length="255" name="sent_list" nullable="true" xsi:type="varchar"/>
+		<column default="0" name="cron_is_run" nullable="false" xsi:type="boolean"/>
+		<column name="last_run_date" nullable="true" xsi:type="timestamp"/>
+		<column default="0" identity="false" name="work_time" nullable="false" xsi:type="int"/>
+		<column name="started_at" nullable="true" xsi:type="timestamp"/>
+		<column name="ended_at" nullable="true" xsi:type="timestamp"/>
+	</table>
+</schema>

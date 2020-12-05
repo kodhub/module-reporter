@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="export_report_start">
+		<observer instance="Kodhub\Reporter\Observer\Export\ReportStart" name="kodhub_reporter_observer_export_reportstart_export_report_start"/>
+	</event>
+	<event name="export_report_end">
+		<observer instance="Kodhub\Reporter\Observer\Export\ReportEnd" name="kodhub_reporter_observer_export_reportend_export_report_end"/>
+	</event>
+</config>

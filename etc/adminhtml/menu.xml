@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Kodhub_Reporter::reporter_top_level"
+             title="Reporter Extensions"
+             module="Kodhub_Reporter"
+             parent="Kodhub::core_top_level"
+             resource="Kodhub_Reporter::Report"
+             sortOrder="10"/>
+
+        <add action="kodhub_reporter/report/index"
+             id="Kodhub_Reporter::kodhub_reporter_report"
+             module="Kodhub_Reporter"
+             parent="Kodhub_Reporter::reporter_top_level"
+             resource="Kodhub_Reporter::Report"
+             sortOrder="10"
+             title="Reporter Management"/>
+
+        <add action="kodhub_reporter/log/index"
+             id="Kodhub_Reporter::kodhub_reporter_log"
+             module="Kodhub_Reporter"
+             parent="Kodhub_Reporter::reporter_top_level"
+             resource="Kodhub_Reporter::Log"
+             sortOrder="20"
+             title="Reporter Logs"/>
+    </menu>
+</config>

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<reporter>
+			<general>
+				<example/>
+			</general>
+			<cron>
+				<enable/>
+				<debug_mode/>
+				<debug_email_list/>
+			</cron>
+		</reporter>
+	</default>
+</config>

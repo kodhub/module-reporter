@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Kodhub_Core::config" title="Kodhub Configuration">
+                                <resource id="Kodhub_Reporter::config_kodhub_reporter" title="Reporter Configuration"/>
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Kodhub_Core::core" sortOrder="10" title="Kodhub">
+                    <resource id="Kodhub_Reporter::Report" sortOrder="10" title="Report">
+                        <resource id="Kodhub_Reporter::Report_save" sortOrder="10" title="Save Report"/>
+                        <resource id="Kodhub_Reporter::Report_delete" sortOrder="20" title="Delete Report"/>
+                        <resource id="Kodhub_Reporter::Report_update" sortOrder="30" title="Update Report"/>
+                        <resource id="Kodhub_Reporter::Report_view" sortOrder="40" title="View Report"/>
+                        <resource id="Kodhub_Reporter::Log" sortOrder="50" title="Log View">
+                            <resource id="Kodhub_Reporter::Log_save" sortOrder="10" title="Save Log"/>
+                            <resource id="Kodhub_Reporter::Log_delete" sortOrder="20" title="Delete Log"/>
+                            <resource id="Kodhub_Reporter::Log_update" sortOrder="30" title="Update Log"/>
+                            <resource id="Kodhub_Reporter::Log_view" sortOrder="40" title="View Log"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
