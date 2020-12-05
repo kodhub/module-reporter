@@ -1,20 +1,28 @@
 <?xml version="1.0" ?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-	<table comment="kodhub_reporter_report Table" engine="innodb" name="kodhub_reporter_report" resource="default">
+
+    <table comment="kodhub_reporter_report Table" engine="innodb" name="kodhub_reporter_report" resource="default">
 		<column comment="Entity Id" identity="true" name="report_id" nullable="false" padding="6" unsigned="true" xsi:type="smallint"/>
 		<constraint referenceId="PRIMARY" xsi:type="primary">
 			<column name="report_id"/>
 		</constraint>
-		<column length="250" name="name" nullable="false" xsi:type="varchar"/>
-		<column length="65000" name="query" nullable="false" xsi:type="text"/>
-		<column default="0" name="cron_status" nullable="false" unsigned="true" xsi:type="boolean"/>
-		<column length="65000" name="cron_email_list" nullable="true" xsi:type="text"/>
-		<column default="00 04 * * *" length="255" name="cron_expression" nullable="true" xsi:type="varchar"/>
-		<column length="255" name="description" nullable="true" xsi:type="varchar"/>
-		<column default="0" name="status" nullable="true" xsi:type="boolean"/>
-		<column name="created_at" nullable="true" xsi:type="timestamp"/>
-		<column name="updated_at" nullable="true" xsi:type="timestamp"/>
-	</table>
+		<column length="250" name="name" nullable="false" comment="Report Name" xsi:type="varchar"/>
+        <column length="255" name="description" nullable="true"  comment="Report Description" xsi:type="varchar"/>
+        <column default="0" name="status" nullable="true" comment="Report Status" xsi:type="boolean"/>
+
+        <column length="65000" name="query" nullable="false" comment="Report Query" xsi:type="text"/>
+        <column length="65000" name="query_parameters" nullable="true" comment="Report Query Parameters" xsi:type="text"/>
+
+		<column default="0" name="cron_status" nullable="false" unsigned="true" comment="Report Cron Status" xsi:type="boolean"/>
+		<column length="65000" name="cron_email_list" nullable="true" comment="Report Sent Email Addresses" xsi:type="text"/>
+		<column default="00 04 * * *" length="255" name="cron_expression" comment="Cron Expression Format" nullable="true" xsi:type="varchar"/>
+        <column default="1" identity="false" name="cron_export_type" nullable="true" comment="Cron Export Type" xsi:type="int"/>
+
+        <column name="last_run_date" nullable="true" comment="Last Run Date" xsi:type="timestamp"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+    </table>
+
 	<table comment="kodhub_reporter_log Table" engine="innodb" name="kodhub_reporter_log" resource="default">
 		<column comment="Entity Id" identity="true" name="log_id" nullable="false" padding="6" unsigned="true" xsi:type="smallint"/>
 		<constraint referenceId="PRIMARY" xsi:type="primary">
@@ -27,7 +35,6 @@
 		<column length="65000" name="query" nullable="false" xsi:type="text"/>
 		<column length="255" name="sent_list" nullable="true" xsi:type="varchar"/>
 		<column default="0" name="cron_is_run" nullable="false" xsi:type="boolean"/>
-		<column name="last_run_date" nullable="true" xsi:type="timestamp"/>
 		<column default="0" identity="false" name="work_time" nullable="false" xsi:type="int"/>
 		<column name="started_at" nullable="true" xsi:type="timestamp"/>
 		<column name="ended_at" nullable="true" xsi:type="timestamp"/>

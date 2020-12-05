@@ -1,179 +1,309 @@
 <?xml version="1.0" ?>
-<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-	<argument name="data" xsi:type="array">
-		<item name="js_config" xsi:type="array">
-			<item name="provider" xsi:type="string">kodhub_reporter_report_form.report_form_data_source</item>
-		</item>
-		<item name="label" translate="true" xsi:type="string">General Information</item>
-		<item name="template" xsi:type="string">templates/form/collapsible</item>
-	</argument>
-	<settings>
-		<buttons>
-			<button class="Kodhub\Reporter\Block\Adminhtml\Report\Edit\BackButton" name="back"/>
-			<button class="Kodhub\Reporter\Block\Adminhtml\Report\Edit\DeleteButton" name="delete"/>
-			<button class="Kodhub\Reporter\Block\Adminhtml\Report\Edit\SaveButton" name="save"/>
-			<button class="Kodhub\Reporter\Block\Adminhtml\Report\Edit\SaveAndContinueButton" name="save_and_continue"/>
-		</buttons>
-		<namespace>kodhub_reporter_report_form</namespace>
-		<dataScope>data</dataScope>
-		<deps>
-			<dep>kodhub_reporter_report_form.report_form_data_source</dep>
-		</deps>
-	</settings>
-	<dataSource name="report_form_data_source">
-		<argument name="data" xsi:type="array">
-			<item name="js_config" xsi:type="array">
-				<item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
-			</item>
-		</argument>
-		<settings>
-			<submitUrl path="*/*/save"/>
-		</settings>
-		<dataProvider class="Kodhub\Reporter\Model\Report\DataProvider" name="report_form_data_source">
-			<settings>
-				<requestFieldName>report_id</requestFieldName>
-				<primaryFieldName>report_id</primaryFieldName>
-			</settings>
-		</dataProvider>
-	</dataSource>
-	<fieldset name="general">
-		<settings>
-			<label>General</label>
-		</settings>
-		<field formElement="input" name="name" sortOrder="10">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Report</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">name</label>
-				<dataScope>name</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="textarea" name="query" sortOrder="20">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Report</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">query</label>
-				<dataScope>query</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="checkbox" name="cron_status" sortOrder="30">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Report</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">cron_status</label>
-				<dataScope>cron_status</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="textarea" name="cron_email_list" sortOrder="40">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Report</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">cron_email_list</label>
-				<dataScope>cron_email_list</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="input" name="cron_expression" sortOrder="50">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Report</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">cron_expression</label>
-				<dataScope>cron_expression</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="input" name="description" sortOrder="60">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Report</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">description</label>
-				<dataScope>description</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="checkbox" name="status" sortOrder="70">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Report</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">status</label>
-				<dataScope>status</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="date" name="created_at" sortOrder="150">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Report</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">created_at</label>
-				<dataScope>created_at</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="date" name="updated_at" sortOrder="160">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Report</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">updated_at</label>
-				<dataScope>updated_at</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-	</fieldset>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">kodhub_reporter_report_form.report_form_data_source</item>
+        </item>
+        <item name="label" translate="true" xsi:type="string">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button class="Kodhub\Reporter\Block\Adminhtml\Report\Edit\BackButton" name="back"/>
+            <button class="Kodhub\Reporter\Block\Adminhtml\Report\Edit\DeleteButton" name="delete"/>
+            <button class="Kodhub\Reporter\Block\Adminhtml\Report\Edit\SaveButton" name="save"/>
+            <button class="Kodhub\Reporter\Block\Adminhtml\Report\Edit\SaveAndContinueButton" name="save_and_continue"/>
+        </buttons>
+        <namespace>kodhub_reporter_report_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>kodhub_reporter_report_form.report_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="report_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="Kodhub\Reporter\Model\Report\DataProvider" name="report_form_data_source">
+            <settings>
+                <requestFieldName>report_id</requestFieldName>
+                <primaryFieldName>report_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label>General</label>
+        </settings>
+        <field formElement="select" name="status" sortOrder="1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Status</label>
+                <dataScope>status</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="enable" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="label" xsi:type="string">Enable</item>
+                            </option>
+                            <option name="disable" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="label" xsi:type="string">Disable</item>
+                            </option>
+                        </options>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field formElement="input" name="name" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Report Name</label>
+                <dataScope>name</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field formElement="textarea" name="description" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Report Description</label>
+                <dataScope>description</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+    </fieldset>
+
+    <fieldset name="query">
+        <settings>
+            <label>Report Query</label>
+        </settings>
+        <field formElement="textarea" name="query" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Report Query</label>
+                <dataScope>query</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <dynamicRows name="query_parameters">
+            <settings>
+                <addButtonLabel translate="true">Add Parameter</addButtonLabel>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <componentType>dynamicRows</componentType>
+                <deleteValue>true</deleteValue>
+                <pageSize>10</pageSize>
+            </settings>
+            <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                    </item>
+                </argument>
+                <field name="label" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <label>Label</label>
+                    </settings>
+                </field>
+                <field name="key" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <label>Key</label>
+                    </settings>
+                </field>
+                <field name="type" formElement="input">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                        </validation>
+                        <dataType>text</dataType>
+                        <label>Type</label>
+                    </settings>
+                </field>
+                <actionDelete template="Magento_Backend/dynamic-rows/cells/action-delete" sortOrder="100">
+                    <settings>
+                        <componentType>actionDelete</componentType>
+                        <dataType>text</dataType>
+                        <label>Actions</label>
+                        <additionalClasses>
+                            <class name="data-grid-actions-cell">true</class>
+                        </additionalClasses>
+                    </settings>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+
+    <fieldset name="cron">
+        <settings>
+            <label>Report Cron Settings</label>
+        </settings>
+        <field formElement="select" name="cron_status" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Cron Status</label>
+                <dataScope>cron_status</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="enable" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="label" xsi:type="string">Enable</item>
+                            </option>
+                            <option name="disable" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="label" xsi:type="string">Disable</item>
+                            </option>
+                        </options>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field formElement="textarea" name="cron_email_list" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Cron Email List</label>
+                <dataScope>cron_email_list</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+        <field formElement="input" name="cron_expression" sortOrder="30">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Cron Expression</label>
+                <dataScope>cron_expression</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+
+        <field formElement="select" name="cron_export_type" sortOrder="11">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Cron Export Type</label>
+                <dataScope>cron_status</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="csv" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="label" xsi:type="string">Csv</item>
+                            </option>
+                            <option name="json" xsi:type="array">
+                                <item name="value" xsi:type="string">2</item>
+                                <item name="label" xsi:type="string">Json</item>
+                            </option>
+                            <option name="html" xsi:type="array">
+                                <item name="value" xsi:type="string">3</item>
+                                <item name="label" xsi:type="string">Html</item>
+                            </option>
+                            <option name="xlsx" xsi:type="array">
+                                <item name="value" xsi:type="string">3</item>
+                                <item name="label" xsi:type="string">Excel</item>
+                            </option>
+                        </options>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
 </form>
