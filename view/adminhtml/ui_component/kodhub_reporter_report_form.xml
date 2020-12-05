@@ -104,7 +104,6 @@
             </settings>
         </field>
     </fieldset>
-
     <fieldset name="query">
         <settings>
             <label>Report Query</label>
@@ -113,6 +112,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Report</item>
+                    <item name="additionalInfo" xsi:type="string" translate="true"><![CDATA[You can use key in your SQL query. <br> <strong>(Ex: SELECT * FROM core_config_data WHERE path LIKE '%{{keyName}}%'</strong>]]></item>
                 </item>
             </argument>
             <settings>
@@ -146,7 +146,6 @@
                         <item name="showFallbackReset" xsi:type="boolean">false</item>
                     </item>
                 </argument>
-
                 <field name="label">
                     <argument name="data" xsi:type="array">
                         <item name="config" xsi:type="array">
@@ -177,12 +176,11 @@
                         </item>
                     </argument>
                 </field>
-                <field name="type">
+                <field name="type" formElement="select">
                     <argument name="data" xsi:type="array">
                         <item name="config" xsi:type="array">
                             <item name="dataType" xsi:type="string">text</item>
                             <item name="label" xsi:type="string" translate="true">Type</item>
-                            <item name="formElement" xsi:type="string">input</item>
                             <item name="dataScope" xsi:type="string">type</item>
                             <item name="showFallbackReset" xsi:type="boolean">false</item>
                             <item name="validation" xsi:type="array">
@@ -191,6 +189,55 @@
                             <item name="sortOrder" xsi:type="string">30</item>
                         </item>
                     </argument>
+                    <formElements>
+                        <select>
+                            <settings>
+                                <options>
+                                    <option name="text" xsi:type="array">
+                                        <item name="value" xsi:type="string">text</item>
+                                        <item name="label" xsi:type="string">text</item>
+                                    </option>
+                                    <option name="color" xsi:type="array">
+                                        <item name="value" xsi:type="string">color</item>
+                                        <item name="label" xsi:type="string">color</item>
+                                    </option>
+                                    <option name="date" xsi:type="array">
+                                        <item name="value" xsi:type="string">date</item>
+                                        <item name="label" xsi:type="string">date</item>
+                                    </option>
+                                    <option name="datetime-local" xsi:type="array">
+                                        <item name="value" xsi:type="string">datetime-local</item>
+                                        <item name="label" xsi:type="string">datetime-local</item>
+                                    </option>
+                                    <option name="email" xsi:type="array">
+                                        <item name="value" xsi:type="string">email</item>
+                                        <item name="label" xsi:type="string">email</item>
+                                    </option>
+                                    <option name="number" xsi:type="array">
+                                        <item name="value" xsi:type="string">number</item>
+                                        <item name="label" xsi:type="string">number</item>
+                                    </option>
+                                    <option name="tel" xsi:type="array">
+                                        <item name="value" xsi:type="string">tel</item>
+                                        <item name="label" xsi:type="string">tel</item>
+                                    </option>
+                                    <option name="time" xsi:type="array">
+                                        <item name="value" xsi:type="string">time</item>
+                                        <item name="label" xsi:type="string">time</item>
+                                    </option>
+                                    <option name="week" xsi:type="array">
+                                        <item name="value" xsi:type="string">week</item>
+                                        <item name="label" xsi:type="string">week</item>
+                                    </option>
+                                    <option name="url" xsi:type="array">
+                                        <item name="value" xsi:type="string">url</item>
+                                        <item name="label" xsi:type="string">url</item>
+                                    </option>
+                                </options>
+                                <caption translate="true">-- Please Select --</caption>
+                            </settings>
+                        </select>
+                    </formElements>
                 </field>
                 <actionDelete>
                     <argument name="data" xsi:type="array">
@@ -207,7 +254,6 @@
             </container>
         </container>
     </fieldset>
-
     <fieldset name="cron">
         <settings>
             <label>Report Cron Settings</label>
@@ -243,72 +289,6 @@
                     </settings>
                 </select>
             </formElements>
-        </field>
-        <container name="cron_email_list_container">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows</item>
-                    <item name="template" xsi:type="string">ui/dynamic-rows/templates/default</item>
-                    <item name="componentType" xsi:type="string">dynamicRows</item>
-                    <item name="label" xsi:type="string" translate="true">Cron Email List</item>
-                    <item name="recordTemplate" xsi:type="string">record</item>
-                    <item name="addButtonLabel" xsi:type="string">Add Parameter</item>
-                    <item name="deleteProperty" xsi:type="boolean">false</item>
-                </item>
-            </argument>
-            <container name="record">
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="label" xsi:type="string" translate="true">Dynamic Rows</item>
-                        <item name="component" xsi:type="string" translate="true">Magento_Ui/js/dynamic-rows/record</item>
-                        <item name="isTemplate" xsi:type="boolean">true</item>
-                        <item name="is_collection" xsi:type="boolean">true</item>
-                        <item name="showFallbackReset" xsi:type="boolean">false</item>
-                    </item>
-                </argument>
-                <field name="email">
-                    <argument name="data" xsi:type="array">
-                        <item name="config" xsi:type="array">
-                            <item name="dataType" xsi:type="string">text</item>
-                            <item name="label" xsi:type="string" translate="true">Email Address</item>
-                            <item name="formElement" xsi:type="string">input</item>
-                            <item name="dataScope" xsi:type="string">email</item>
-                            <item name="showFallbackReset" xsi:type="boolean">false</item>
-                            <item name="validation" xsi:type="array">
-                                <item name="required-entry" xsi:type="boolean">true</item>
-                            </item>
-                            <item name="sortOrder" xsi:type="string">30</item>
-                        </item>
-                    </argument>
-                </field>
-                <actionDelete>
-                    <argument name="data" xsi:type="array">
-                        <item name="config" xsi:type="array">
-                            <item name="componentType" xsi:type="string">actionDelete</item>
-                            <item name="dataType" xsi:type="string">text</item>
-                            <item name="fit" xsi:type="boolean">false</item>
-                            <item name="label" xsi:type="string">Actions</item>
-                            <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
-                            <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
-                        </item>
-                    </argument>
-                </actionDelete>
-            </container>
-        </container>
-        <field formElement="input" name="cron_expression" sortOrder="30">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">Report</item>
-                </item>
-            </argument>
-            <settings>
-                <dataType>text</dataType>
-                <label translate="true">Cron Expression</label>
-                <dataScope>cron_expression</dataScope>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">false</rule>
-                </validation>
-            </settings>
         </field>
         <field formElement="select" name="cron_export_type" sortOrder="11">
             <argument name="data" xsi:type="array">
@@ -349,6 +329,104 @@
                     </settings>
                 </select>
             </formElements>
+        </field>
+        <container name="cron_email_list_container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows</item>
+                    <item name="template" xsi:type="string">ui/dynamic-rows/templates/default</item>
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="label" xsi:type="string" translate="true">Cron Email List</item>
+                    <item name="recordTemplate" xsi:type="string">record</item>
+                    <item name="addButtonLabel" xsi:type="string">Add Parameter</item>
+                    <item name="deleteProperty" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Dynamic Rows</item>
+                        <item name="component" xsi:type="string" translate="true">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="showFallbackReset" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <field name="email">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Email Address</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">email</item>
+                            <item name="showFallbackReset" xsi:type="boolean">false</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                            </item>
+                            <item name="sortOrder" xsi:type="string">10</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="status" formElement="select">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Status</item>
+                            <item name="dataScope" xsi:type="string">status</item>
+                            <item name="showFallbackReset" xsi:type="boolean">false</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                            </item>
+                            <item name="sortOrder" xsi:type="string">20</item>
+                        </item>
+                    </argument>
+                    <formElements>
+                        <select>
+                            <settings>
+                                <options>
+                                    <option name="enable" xsi:type="array">
+                                        <item name="value" xsi:type="string">1</item>
+                                        <item name="label" xsi:type="string">Enable</item>
+                                    </option>
+                                    <option name="disable" xsi:type="array">
+                                        <item name="value" xsi:type="string">0</item>
+                                        <item name="label" xsi:type="string">Disable</item>
+                                    </option>
+                                </options>
+                                <caption translate="true">-- Please Select --</caption>
+                            </settings>
+                        </select>
+                    </formElements>
+                </field>
+                <actionDelete>
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="label" xsi:type="string">Actions</item>
+                            <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                            <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </container>
+        <field formElement="input" name="cron_expression" sortOrder="30">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                    <item name="additionalInfo" xsi:type="string" translate="true"><![CDATA[You can support from <strong><a href="https://crontab.guru?utm_source=kodhub_reporter" target="_blank">crontab.guru</a></strong>]]></item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Cron Expression</label>
+                <dataScope>cron_expression</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
         </field>
     </fieldset>
 </form>
