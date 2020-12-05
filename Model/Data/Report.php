@@ -114,7 +114,7 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
      */
     public function getCronEmailList()
     {
-        return $this->_get(self::CRON_EMAIL_LIST);
+        return json_decode($this->_get(self::CRON_EMAIL_LIST));
     }
 
     /**
@@ -124,6 +124,10 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
      */
     public function setCronEmailList($cronEmailList)
     {
+        if (is_array($cronEmailList)) {
+            $cronEmailList = json_encode($cronEmailList);
+        }
+
         return $this->setData(self::CRON_EMAIL_LIST, $cronEmailList);
     }
 
@@ -220,6 +224,67 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
     public function setUpdatedAt($updatedAt)
     {
         return $this->setData(self::UPDATED_AT, $updatedAt);
+    }
+
+    /**
+     * Get last_run_date
+     * @return string|null
+     */
+    public function getLastRunDate()
+    {
+        return $this->_get(self::LAST_RUN_DATE);
+    }
+
+    /**
+     * Set last_run_date
+     * @param string $lastRunDate
+     * @return \Kodhub\Reporter\Api\Data\ReportInterface
+     */
+    public function setLastRunDate($lastRunDate)
+    {
+        return $this->setData(self::LAST_RUN_DATE, $lastRunDate);
+    }
+
+    /**
+     * Get cron_export_type
+     * @return string|null
+     */
+    public function getCronExportType()
+    {
+        return $this->_get(self::CRON_EXPORT_TYPE);
+    }
+
+    /**
+     * Set cron_export_type
+     * @param string $cronExportType
+     * @return \Kodhub\Reporter\Api\Data\ReportInterface
+     */
+    public function setCronExportType($cronExportType)
+    {
+        return $this->setData(self::CRON_EXPORT_TYPE, $cronExportType);
+    }
+
+    /**
+     * Get query_parameters
+     * @return string|null
+     */
+    public function getQueryParameters()
+    {
+        return json_decode($this->_get(self::CRON_EXPORT_TYPE));
+    }
+
+    /**
+     * Set query_parameters
+     * @param string $queryParameters
+     * @return \Kodhub\Reporter\Api\Data\ReportInterface
+     */
+    public function setQueryParameters($queryParameters)
+    {
+        if (is_array($queryParameters)) {
+            $queryParameters = json_encode($queryParameters);
+        }
+
+        return $this->setData(self::QUERY_PARAMETERS, $queryParameters);
     }
 }
 

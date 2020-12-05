@@ -19,7 +19,10 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const NAME = 'name';
     const STATUS = 'status';
     const QUERY = 'query';
+    const QUERY_PARAMETERS = 'query_parameters';
     const CRON_EMAIL_LIST = 'cron_email_list';
+    const CRON_EXPORT_TYPE = 'cron_export_type';
+    const LAST_RUN_DATE = 'last_run_date';
 
     /**
      * Get report_id
@@ -74,6 +77,45 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Kodhub\Reporter\Api\Data\ReportInterface
      */
     public function setQuery($query);
+
+    /**
+     * Get query parameters
+     * @return string|null
+     */
+    public function getQueryParameters();
+
+    /**
+     * Set query parameters
+     * @param string $queryParameters
+     * @return \Kodhub\Reporter\Api\Data\ReportInterface
+     */
+    public function setQueryParameters($queryParameters);
+
+    /**
+     * Get cron export type
+     * @return string|null
+     */
+    public function getCronExportType();
+
+    /**
+     * Set cron export type
+     * @param string $cronExportType
+     * @return \Kodhub\Reporter\Api\Data\ReportInterface
+     */
+    public function setCronExportType($cronExportType);
+
+    /**
+     * Get last run date
+     * @return string|null
+     */
+    public function getLastRunDate();
+
+    /**
+     * Set last run date
+     * @param string $lastRunDate
+     * @return \Kodhub\Reporter\Api\Data\ReportInterface
+     */
+    public function setLastRunDate($lastRunDate);
 
     /**
      * Get cron_status

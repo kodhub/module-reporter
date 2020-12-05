@@ -124,78 +124,88 @@
                 </validation>
             </settings>
         </field>
-        <dynamicRows name="query_parameters">
-            <settings>
-                <addButtonLabel translate="true">Add Parameter</addButtonLabel>
-                <additionalClasses>
-                    <class name="admin__field-wide">true</class>
-                </additionalClasses>
-                <componentType>dynamicRows</componentType>
-                <deleteValue>true</deleteValue>
-                <pageSize>10</pageSize>
-            </settings>
-            <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+        <container name="query_parameters_container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows</item>
+                    <item name="template" xsi:type="string">ui/dynamic-rows/templates/default</item>
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="label" xsi:type="string" translate="true">Report Query Parameters</item>
+                    <item name="recordTemplate" xsi:type="string">record</item>
+                    <item name="addButtonLabel" xsi:type="string">Add Parameter</item>
+                    <item name="deleteProperty" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <container name="record">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Dynamic Rows</item>
+                        <item name="component" xsi:type="string" translate="true">Magento_Ui/js/dynamic-rows/record</item>
                         <item name="isTemplate" xsi:type="boolean">true</item>
                         <item name="is_collection" xsi:type="boolean">true</item>
-                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="showFallbackReset" xsi:type="boolean">false</item>
                     </item>
                 </argument>
-                <field name="label" formElement="input">
+
+                <field name="label">
                     <argument name="data" xsi:type="array">
                         <item name="config" xsi:type="array">
-                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Label</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">label</item>
+                            <item name="showFallbackReset" xsi:type="boolean">false</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                            </item>
+                            <item name="sortOrder" xsi:type="string">10</item>
                         </item>
                     </argument>
-                    <settings>
-                        <validation>
-                            <rule name="required-entry" xsi:type="boolean">true</rule>
-                        </validation>
-                        <dataType>text</dataType>
-                        <label>Label</label>
-                    </settings>
                 </field>
-                <field name="key" formElement="input">
+                <field name="key">
                     <argument name="data" xsi:type="array">
                         <item name="config" xsi:type="array">
-                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Key</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">key</item>
+                            <item name="showFallbackReset" xsi:type="boolean">false</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                            </item>
+                            <item name="sortOrder" xsi:type="string">20</item>
                         </item>
                     </argument>
-                    <settings>
-                        <validation>
-                            <rule name="required-entry" xsi:type="boolean">true</rule>
-                        </validation>
-                        <dataType>text</dataType>
-                        <label>Key</label>
-                    </settings>
                 </field>
-                <field name="type" formElement="input">
+                <field name="type">
                     <argument name="data" xsi:type="array">
                         <item name="config" xsi:type="array">
-                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Type</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">type</item>
+                            <item name="showFallbackReset" xsi:type="boolean">false</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                            </item>
+                            <item name="sortOrder" xsi:type="string">30</item>
                         </item>
                     </argument>
-                    <settings>
-                        <validation>
-                            <rule name="required-entry" xsi:type="boolean">true</rule>
-                        </validation>
-                        <dataType>text</dataType>
-                        <label>Type</label>
-                    </settings>
                 </field>
-                <actionDelete template="Magento_Backend/dynamic-rows/cells/action-delete" sortOrder="100">
-                    <settings>
-                        <componentType>actionDelete</componentType>
-                        <dataType>text</dataType>
-                        <label>Actions</label>
-                        <additionalClasses>
-                            <class name="data-grid-actions-cell">true</class>
-                        </additionalClasses>
-                    </settings>
+                <actionDelete>
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="label" xsi:type="string">Actions</item>
+                            <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                            <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
+                        </item>
+                    </argument>
                 </actionDelete>
             </container>
-        </dynamicRows>
+        </container>
     </fieldset>
 
     <fieldset name="cron">
@@ -234,21 +244,57 @@
                 </select>
             </formElements>
         </field>
-        <field formElement="textarea" name="cron_email_list" sortOrder="20">
+        <container name="cron_email_list_container">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">Report</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows</item>
+                    <item name="template" xsi:type="string">ui/dynamic-rows/templates/default</item>
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="label" xsi:type="string" translate="true">Cron Email List</item>
+                    <item name="recordTemplate" xsi:type="string">record</item>
+                    <item name="addButtonLabel" xsi:type="string">Add Parameter</item>
+                    <item name="deleteProperty" xsi:type="boolean">false</item>
                 </item>
             </argument>
-            <settings>
-                <dataType>text</dataType>
-                <label translate="true">Cron Email List</label>
-                <dataScope>cron_email_list</dataScope>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">false</rule>
-                </validation>
-            </settings>
-        </field>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Dynamic Rows</item>
+                        <item name="component" xsi:type="string" translate="true">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="showFallbackReset" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <field name="email">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Email Address</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">email</item>
+                            <item name="showFallbackReset" xsi:type="boolean">false</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                            </item>
+                            <item name="sortOrder" xsi:type="string">30</item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete>
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="label" xsi:type="string">Actions</item>
+                            <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                            <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </container>
         <field formElement="input" name="cron_expression" sortOrder="30">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -264,7 +310,6 @@
                 </validation>
             </settings>
         </field>
-
         <field formElement="select" name="cron_export_type" sortOrder="11">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -274,7 +319,7 @@
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Cron Export Type</label>
-                <dataScope>cron_status</dataScope>
+                <dataScope>cron_export_type</dataScope>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>

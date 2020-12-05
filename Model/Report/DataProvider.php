@@ -56,18 +56,35 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         }
         $items = $this->collection->getItems();
         foreach ($items as $model) {
-            $this->loadedData[$model->getId()] = $model->getData();
+            $this->loadedData[$model->getId()] = $this->dataSerialize($model->getData());
         }
         $data = $this->dataPersistor->get('kodhub_reporter_report');
-        
+
         if (!empty($data)) {
             $model = $this->collection->getNewEmptyItem();
             $model->setData($data);
-            $this->loadedData[$model->getId()] = $model->getData();
+            $this->loadedData[$model->getId()] = $this->dataSerialize($model->getData());
+            $this->dynamicRowsSerialize($this->loadedData[$model->getId()]);
             $this->dataPersistor->clear('kodhub_reporter_report');
         }
-        
+
         return $this->loadedData;
+    }
+
+    /**
+     * Serialize Data
+     */
+    private function dataSerialize($data)
+    {
+        if(isset($data['query_parameters'])) {
+            $data['query_parameters_container'] = json_decode($data['query_parameters'], true);
+        }
+
+        if(isset($data['cron_email_list'])) {
+            $data['cron_email_list_container'] = json_decode($data['cron_email_list'], true);
+        }
+
+        return $data;
     }
 }
 
