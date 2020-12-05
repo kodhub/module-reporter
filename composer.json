@@ -11,10 +11,9 @@
     ],
     "minimum-stability": "dev",
     "require": {
-
+        "kodhub/module-core": "dev-master"
     },
     "require-dev": {
-        "kodhub/module-core": "dev-master"
     },
     "autoload": {
         "psr-4": {
