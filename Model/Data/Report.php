@@ -270,7 +270,7 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
      */
     public function getQueryParameters()
     {
-        return json_decode($this->_get(self::CRON_EXPORT_TYPE));
+        return json_decode($this->_get(self::QUERY_PARAMETERS), true);
     }
 
     /**

@@ -147,6 +147,15 @@
                 <label translate="true">Updated At</label>
             </settings>
         </column>
+        <actionsColumn name="entity_id" class="Kodhub\Reporter\Ui\Component\Listing\Column\ReportProcessActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="viewUrlPath" xsi:type="string">kodhub_reporter/report/generate</item>
+                    <item name="urlEntityParamName" xsi:type="string">report_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
         <actionsColumn class="Kodhub\Reporter\Ui\Component\Listing\Column\ReportActions" name="zzactions">
             <settings>
                 <indexField>report_id</indexField>
