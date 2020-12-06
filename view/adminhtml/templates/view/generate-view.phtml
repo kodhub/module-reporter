@@ -26,7 +26,19 @@ $reportEntity = $this->getReportEntity();
                 <?php echo __('Not found parameter.'); ?>
             <?php endif; ?>
         </div>
-        <div class="center-container"></div>
+        <div class="center-container">
+            <div class="form-group">
+                <label for="export_type">
+                    <?php echo __('Export Type'); ?>
+                </label>
+                <br>
+                <select name="" id="">
+                    <?php foreach ($this->getExportType() as $type): ?>
+                        <option value="<?php echo $type['value']?>"><?php echo $type['label']?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+        </div>
         <div class="right-container"></div>
     <?php else: ?>
         <div class="text-center">
