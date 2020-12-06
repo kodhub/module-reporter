@@ -26,9 +26,22 @@ class Export extends Command
         InputInterface $input,
         OutputInterface $output
     ) {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+
+        /**
+         * @var $exportHelper \Kodhub\Reporter\Helper\Export
+         */
+        $exportHelper = $objectManager->get('Kodhub\Reporter\Helper\Export');
+
         $name = $input->getArgument(self::NAME_ARGUMENT);
         $option = $input->getOption(self::NAME_OPTION);
+
         $output->writeln("Hello " . $name);
+
+        $exportFile = $exportHelper->export(1, 1);
+
+        $output->writeln("Generate report file ->  " . $exportFile);
+
     }
 
     /**
@@ -36,7 +49,7 @@ class Export extends Command
      */
     protected function configure()
     {
-        $this->setName("kodhub_reporter:export");
+        $this->setName("kodhub:reporter:export");
         $this->setDescription("Export your Report");
         $this->setDefinition([
             new InputArgument(self::NAME_ARGUMENT, InputArgument::OPTIONAL, "Name"),
