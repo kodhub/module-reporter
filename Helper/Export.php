@@ -14,10 +14,10 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Export extends AbstractHelper
 {
-    const EXPORT_CSV = 1;
-    const EXPORT_EXCEL = 2;
-    const EXPORT_JSON = 3;
-    const EXPORT_HTML = 4;
+    const EXPORT_CSV = 0;
+    const EXPORT_EXCEL = 1;
+    const EXPORT_JSON = 2;
+    const EXPORT_HTML = 3;
     const MODULE_MEDIA_FOLDER = "kodhub/reporter";
 
     /**

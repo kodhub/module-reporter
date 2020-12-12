@@ -15,8 +15,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Export extends Command
 {
-    const NAME_ARGUMENT = "name";
-    const NAME_OPTION = "option";
+    const REPORTID_OPTION = "report_id";
+    const EXPORTTYPE_OPTION = "export_type";
 
     /**
      * {@inheritdoc}
@@ -24,18 +24,41 @@ class Export extends Command
     protected function execute(
         InputInterface $input,
         OutputInterface $output
-    ) {
+    )
+    {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
 
         /**
          * @var $exportHelper \Kodhub\Reporter\Helper\Export
          */
-        $exportHelper = $objectManager->get('Kodhub\Reporter\Helper\Export');
+        $exportHelper = $objectManager->get(\Kodhub\Reporter\Helper\Export::class);
 
-        $name = $input->getArgument(self::NAME_ARGUMENT);
-        $option = $input->getOption(self::NAME_OPTION);
+        /**
+         * @var $exportTypeSource \Kodhub\Reporter\Model\Config\Source\ExportType
+         */
+        $exportTypeSource = $objectManager->get(\Kodhub\Reporter\Model\Config\Source\ExportType::class);
 
-        $exportFile = $exportHelper->export(1, 2);
+        $exportTypes = $exportTypeSource->toArray();
+
+        $reportId = $input->getOption(self::REPORTID_OPTION);
+
+        $exportType = $input->getOption(self::EXPORTTYPE_OPTION);
+
+        if (empty($reportId)) {
+            throw new \Exception('--report_id is required');
+        }
+
+        if (empty($exportType)) {
+            throw new \Exception('--export_type is required');
+        }
+
+        if (!in_array($exportType, $exportTypes)) {
+            throw new \Exception('Invalid export type ( Available formats: ' . implode(',', $exportTypeSource->toArray()) . ' )');
+        }
+
+        $exportType = array_search($exportType, $exportTypes);
+
+        $exportFile = $exportHelper->export((int) $reportId, (int) $exportType);
 
         $output->writeln("Generate report file ->  " . $exportFile);
     }
@@ -45,11 +68,19 @@ class Export extends Command
      */
     protected function configure()
     {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+
+        /**
+         * @var $exportTypeSource \Kodhub\Reporter\Model\Config\Source\ExportType
+         */
+        $exportTypeSource = $objectManager->get(\Kodhub\Reporter\Model\Config\Source\ExportType::class);
+
         $this->setName("kodhub:reporter:export");
         $this->setDescription("Export your Report");
+        $availableFormats = implode(',', $exportTypeSource->toArray());
         $this->setDefinition([
-            new InputArgument(self::NAME_ARGUMENT, InputArgument::OPTIONAL, "Name"),
-            new InputOption(self::NAME_OPTION, "-a", InputOption::VALUE_NONE, "Option functionality")
+            new InputOption(self::REPORTID_OPTION, "-i", InputOption::VALUE_REQUIRED, "Report ID"),
+            new InputOption(self::EXPORTTYPE_OPTION, "-e", InputOption::VALUE_REQUIRED, "Export Type (available: " . $availableFormats)
         ]);
         parent::configure();
     }
