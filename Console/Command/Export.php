@@ -35,7 +35,7 @@ class Export extends Command
         $name = $input->getArgument(self::NAME_ARGUMENT);
         $option = $input->getOption(self::NAME_OPTION);
 
-        $exportFile = $exportHelper->export(1, 1);
+        $exportFile = $exportHelper->export(1, 2);
 
         $output->writeln("Generate report file ->  " . $exportFile);
     }

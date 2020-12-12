@@ -9,6 +9,8 @@ namespace Kodhub\Reporter\Helper;
 
 use Kodhub\Reporter\Model\ReportRepository;
 use Magento\Framework\App\Helper\AbstractHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Export extends AbstractHelper
 {
@@ -129,7 +131,8 @@ class Export extends AbstractHelper
 
     /**
      * @return string
-     * @throws \Magento\Framework\Exception\FileSystemException|\Exception
+     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws \Zend_Db_Statement_Exception
      */
     private function exportCsv()
     {
@@ -145,6 +148,11 @@ class Export extends AbstractHelper
         return $filePath;
     }
 
+    /**
+     * @return string
+     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws \Zend_Db_Statement_Exception
+     */
     private function exportJson()
     {
         $filePath = $this->fileNameGenerate('json');
@@ -156,6 +164,11 @@ class Export extends AbstractHelper
         return $filePath;
     }
 
+    /**
+     * @return string
+     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws \Zend_Db_Statement_Exception
+     */
     private function exportHtml()
     {
         $filePath = $this->fileNameGenerate('html');
@@ -198,16 +211,44 @@ class Export extends AbstractHelper
         return $filePath;
     }
 
+    /**
+     * @return string
+     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \Zend_Db_Statement_Exception
+     */
     private function exportExcel()
     {
+        $filePath = $this->fileNameGenerate('xlsx');
 
+        $this->_fileFolder->touch($filePath);
+
+        $sheet = new Spreadsheet();
+
+        $page = $sheet->getActiveSheet();
+
+        $page->fromArray($this->getResult());
+
+        (new Xlsx($sheet))->save($filePath);
+
+        return $filePath;
     }
 
+    /**
+     * @return array
+     * @throws \Zend_Db_Statement_Exception
+     */
     private function getResult()
     {
         $query = $this->reportEntity->getQuery();
 
-        return $this->_connection->query($query)->fetchAll();
+        $result = $this->_connection->query($query)->fetchAll();
+
+        if (count($result) < 1) {
+            throw new \Exception('Not found record.');
+        }
+
+        return $result;
     }
 
     /**
