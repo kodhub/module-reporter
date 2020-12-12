@@ -15,7 +15,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Export extends Command
 {
-
     const NAME_ARGUMENT = "name";
     const NAME_OPTION = "option";
 
@@ -36,12 +35,9 @@ class Export extends Command
         $name = $input->getArgument(self::NAME_ARGUMENT);
         $option = $input->getOption(self::NAME_OPTION);
 
-        $output->writeln("Hello " . $name);
-
         $exportFile = $exportHelper->export(1, 1);
 
         $output->writeln("Generate report file ->  " . $exportFile);
-
     }
 
     /**

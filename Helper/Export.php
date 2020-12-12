@@ -133,10 +133,6 @@ class Export extends AbstractHelper
      */
     private function exportCsv()
     {
-        $query = $this->reportEntity->getQuery();
-
-        $result = $this->_connection->query($query)->fetchAll();
-
         $filePath = $this->fileNameGenerate('csv');
 
         $this->_fileFolder->touch($filePath);
@@ -144,24 +140,74 @@ class Export extends AbstractHelper
         $this->_csvProcessor
             ->setEnclosure('"')
             ->setDelimiter(',')
-            ->saveData($filePath, $content);
+            ->saveData($filePath, $this->getResult());
 
         return $filePath;
     }
 
     private function exportJson()
     {
+        $filePath = $this->fileNameGenerate('json');
 
+        $this->_fileFolder->touch($filePath);
+
+        $this->_fileFolder->writeFile($filePath, json_encode($this->getResult()));
+
+        return $filePath;
     }
 
     private function exportHtml()
     {
+        $filePath = $this->fileNameGenerate('html');
 
+        $this->_fileFolder->touch($filePath);
+
+        $html = "<table><caption>" . __('Report') . " " . $this->reportEntity->getName() . "</caption>" . PHP_EOL;
+
+        $html .= "<thead>" . PHP_EOL;
+
+        foreach ($this->getResult() as $key => $result) {
+            if ($key == 0) {
+                foreach ($result as $colKey => $col) {
+                    $html .= "<th style='border: 1px solid #000;min-width: 50px'>" . $colKey . "</th>" . PHP_EOL;
+                }
+                break;
+            }
+        }
+
+        $html .= "</thead>" . PHP_EOL;
+
+        $html .= "<tbody>" . PHP_EOL;
+
+        foreach ($this->getResult() as $key => $result) {
+            $html .= "<tr>" . PHP_EOL;
+
+            foreach ($result as $col) {
+                $html .= "<td style='border: 1px solid #000;min-width: 50px'>" . $col . "</td>" . PHP_EOL;
+            }
+
+            $html .= "</tr>" . PHP_EOL;
+        }
+
+        $html .= "<tbody>" . PHP_EOL;
+
+        $html .= "</table>";
+
+        $this->_fileFolder->writeFile($filePath, $html);
+
+        return $filePath;
     }
 
     private function exportExcel()
     {
 
+    }
+
+    private function getResult()
+    {
+        $query = $this->reportEntity->getQuery();
+
+        return $this->_connection->query($query)->fetchAll();
     }
 
     /**
