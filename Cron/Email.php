@@ -11,6 +11,10 @@ use Kodhub\Reporter\Helper\Export;
 use Kodhub\Reporter\Helper\Functions;
 use Kodhub\Reporter\Model\ReportRepository;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\App\Area;
+use Magento\Framework\Mail\Template\TransportBuilder;
+use Magento\Store\Model\Store;
+use Magento\Email\Model\Template\SenderResolver;
 
 class Email
 {
@@ -33,6 +37,16 @@ class Email
     protected $searchCriteriaBuilder;
 
     /**
+     * @var TransportBuilder
+     */
+    protected $_transportBuilder;
+
+    /**
+     * @var SenderResolver
+     */
+    protected $senderResolver;
+
+    /**
      * Email constructor.
      * @param \Psr\Log\LoggerInterface $logger
      * @param Functions $functionsHelper
@@ -42,8 +56,10 @@ class Email
         \Psr\Log\LoggerInterface $logger,
         Functions $functionsHelper,
         Export $exportHelper,
+        TransportBuilder $transportBuilder,
         ReportRepository $reportRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        SenderResolver $senderResolver
     )
     {
         $this->logger = $logger;
@@ -51,6 +67,9 @@ class Email
         $this->exportHelper = $exportHelper;
         $this->reportRepository = $reportRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->_transportBuilder = $transportBuilder;
+        $this->senderResolver = $senderResolver;
+
     }
 
     /**
@@ -92,6 +111,11 @@ class Email
                         $exportFile = $this->exportHelper->export((int)$report->getReportId(), (int)$report->getCronExportType());
 
                         $this->logger->critical($exportFile . ' oluşturuldu.');
+
+                        foreach ($sendEmailList as $email) {
+                            $this->sendEmail($email, $exportFile, $report->getName(), $report->getDescription());
+                        }
+
                     } catch (\Exception $exception) {
                         $this->logger->critical($exception->getMessage());
                     } catch (\Throwable $exception) {
@@ -106,6 +130,35 @@ class Email
             } else {
                 $this->logger->critical($report->getName() . ' cronu çalışmadı. zamanı gelmedi.');
             }
+        }
+    }
+
+    /**
+     * @param $to
+     * @param $exportFile
+     * @param $reportName
+     * @param $reportDescription
+     */
+    private function sendEmail($to, $exportFile, $reportName, $reportDescription)
+    {
+        $this->_transportBuilder
+            ->setTemplateIdentifier('kodhub_reporter_send_report_template')
+            ->setTemplateOptions(['area' => Area::AREA_FRONTEND, 'store' => Store::DEFAULT_STORE_ID])
+            ->setTemplateVars(
+                [
+                    'export_file' => $exportFile,
+                    'report_name' => $reportName,
+                    'report_description' => $reportDescription,
+                    'generated_date' => date('Y-m-d H:i:s')
+                ]
+            )
+            ->setFrom($this->senderResolver->resolve('general'))
+            ->addTo($to);
+
+        try {
+            $this->_transportBuilder->getTransport()->sendMessage();
+        } catch (\Exception $exception) {
+            $this->logger->critical($exception->getMessage());
         }
     }
 }

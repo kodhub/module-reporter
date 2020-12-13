@@ -1,0 +1,12 @@
+<!--@subject {{trans "Auto Generated Report - %name" name=$report_name}} @-->
+<div class="">
+    <h3>{{var report_name}}</h3>
+    <p>{{var report_description}}</p>
+    <p>
+        {{trans "Your download link is here"}} <a href="{{var export_file}}" download>{{var export_file}}</a>
+        <br><small>{{trans "This link will be deleted within 7 days."}}</small>
+    </p>
+    <p>
+        <strong>{{trans "Generated date"}}:</strong> {{var generated_date}}
+    </p>
+</div>
