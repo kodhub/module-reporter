@@ -114,7 +114,7 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
      */
     public function getCronEmailList()
     {
-        return json_decode($this->_get(self::CRON_EMAIL_LIST), true);
+        return $this->_get(self::CRON_EMAIL_LIST);
     }
 
     /**
@@ -124,10 +124,6 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
      */
     public function setCronEmailList($cronEmailList)
     {
-        if (is_array($cronEmailList)) {
-            $cronEmailList = json_encode($cronEmailList);
-        }
-
         return $this->setData(self::CRON_EMAIL_LIST, $cronEmailList);
     }
 
@@ -270,7 +266,7 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
      */
     public function getQueryParameters()
     {
-        return json_decode($this->_get(self::QUERY_PARAMETERS), true);
+        return $this->_get(self::QUERY_PARAMETERS);
     }
 
     /**
@@ -280,10 +276,6 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
      */
     public function setQueryParameters($queryParameters)
     {
-        if (is_array($queryParameters)) {
-            $queryParameters = json_encode($queryParameters);
-        }
-
         return $this->setData(self::QUERY_PARAMETERS, $queryParameters);
     }
 }

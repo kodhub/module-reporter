@@ -4,6 +4,7 @@
  */
 $reportEntity = $this->getReportEntity();
 
+$reportEntity->setQueryParameters(json_decode($reportEntity->getQueryParameters(), true))
 ?>
 
 <div class="kodhub-reporter-generate-report-container">

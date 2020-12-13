@@ -96,15 +96,15 @@ class ReportRepository implements ReportRepositoryInterface
             $storeId = $this->storeManager->getStore()->getId();
             $report->setStoreId($storeId);
         } */
-        
+
         $reportData = $this->extensibleDataObjectConverter->toNestedArray(
             $report,
             [],
             \Kodhub\Reporter\Api\Data\ReportInterface::class
         );
-        
+
         $reportModel = $this->reportFactory->create()->setData($reportData);
-        
+
         try {
             $this->resource->save($reportModel);
         } catch (\Exception $exception) {
@@ -136,22 +136,22 @@ class ReportRepository implements ReportRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->reportCollectionFactory->create();
-        
+
         $this->extensionAttributesJoinProcessor->process(
             $collection,
             \Kodhub\Reporter\Api\Data\ReportInterface::class
         );
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
+
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
-        
+
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model->getDataModel();
         }
-        
+
         $searchResults->setItems($items);
         $searchResults->setTotalCount($collection->getSize());
         return $searchResults;

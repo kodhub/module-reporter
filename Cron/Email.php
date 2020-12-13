@@ -9,6 +9,7 @@ namespace Kodhub\Reporter\Cron;
 
 use Kodhub\Reporter\Helper\Export;
 use Kodhub\Reporter\Helper\Functions;
+use Kodhub\Reporter\Model\ReportFactory;
 use Kodhub\Reporter\Model\ReportRepository;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\Area;
@@ -33,7 +34,9 @@ class Email
      */
     protected $functionsHelper;
 
-    /** @var SearchCriteriaBuilder */
+    /**
+     * @var SearchCriteriaBuilder
+     */
     protected $searchCriteriaBuilder;
 
     /**
@@ -79,8 +82,6 @@ class Email
      */
     public function execute()
     {
-        //$this->logger->critical("Cronjob Email is executed.");
-
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter('cron_status', '1', 'eq')
             ->addFilter('cron_email_list', '[]', 'neq')
@@ -92,26 +93,19 @@ class Email
         $reports = $this->reportRepository->getList($searchCriteria)->getItems();
 
         foreach ($reports as $report) {
-            $this->logger->critical($report->getName());
 
             if ($this->functionsHelper->shouldCronWork($report->getCronExpression())) {
 
                 $sendEmailList = [];
-                foreach ($report->getCronEmailList() as $email) {
+                foreach (json_decode($report->getCronEmailList(), true) as $email) {
                     if ($email['status'] === "1") {
                         $sendEmailList[] = $email['email'];
-                        $this->logger->critical($email['email'] . ' email adresine gönderilmek üzere eklendi.');
                     }
                 }
 
                 if (count($sendEmailList) > 0) {
-                    $this->logger->critical('Emailler bulundu.');
-
                     try {
                         $exportFile = $this->exportHelper->export((int)$report->getReportId(), (int)$report->getCronExportType());
-
-                        $this->logger->critical($exportFile . ' oluşturuldu.');
-
                         foreach ($sendEmailList as $email) {
                             $this->sendEmail($email, $exportFile, $report->getName(), $report->getDescription());
                         }
@@ -125,10 +119,7 @@ class Email
                 } else {
                     $this->logger->critical('Gönderilecek email bulunamadı.');
                 }
-
-                $this->logger->critical($report->getName() . ' cronu çalıştı. zamanı geldi.');
             } else {
-                $this->logger->critical($report->getName() . ' cronu çalışmadı. zamanı gelmedi.');
             }
         }
     }

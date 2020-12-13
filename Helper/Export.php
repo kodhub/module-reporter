@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Kodhub\Reporter\Helper;
 
+use Kodhub\Reporter\Model\ReportFactory;
 use Kodhub\Reporter\Model\ReportRepository;
 use Magento\Framework\App\Helper\AbstractHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -107,7 +108,7 @@ class Export extends AbstractHelper
 
         if ($this->reportEntity->getQueryParameters()) {
             $requiredParameters = [];
-            foreach ($this->reportEntity->getQueryParameters() as $queryParameter) {
+            foreach (json_decode($this->reportEntity->getQueryParameters(), true) as $queryParameter) {
                 if (
                     !isset($this->queryParameters[$queryParameter['key']]) ||
                     $this->queryParameters[$queryParameter['key']] === '' ||
@@ -150,6 +151,9 @@ class Export extends AbstractHelper
                 'exportFile' => $exportFile
             ]
         );
+
+        $this->reportEntity->setLastRunDate(date('Y-m-d H:i:s'));
+        $this->reportRepository->save($this->reportEntity);
 
         return str_replace($this->_directoryList->getPath($this->_directoryList::PUB) . DS, $this->_urlBuilder->getBaseUrl(), $exportFile);
     }
