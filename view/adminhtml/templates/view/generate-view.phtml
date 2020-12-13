@@ -8,38 +8,47 @@ $reportEntity = $this->getReportEntity();
 
 <div class="kodhub-reporter-generate-report-container">
     <?php if ($reportEntity->getStatus() == 1): ?>
-        <div class="left-container">
-            <?php if (!empty($reportEntity->getQueryParameters()) && count($reportEntity->getQueryParameters()) > 0): ?>
-                <?php foreach ($reportEntity->getQueryParameters() as $parameter): ?>
-                    <div class="form-group">
-                        <label for="<?php echo $parameter['key']; ?>">
-                            <?php echo $parameter['label']; ?>
-                        </label>
-                        <br>
-                        <input type="<?php echo $parameter['type']; ?>"
-                               name="<?php echo $parameter['key']; ?>"
-                               placeholder="<?php echo $parameter['label']; ?>"
-                               required>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <?php echo __('Not found parameter.'); ?>
-            <?php endif; ?>
-        </div>
-        <div class="center-container">
-            <div class="form-group">
-                <label for="export_type">
-                    <?php echo __('Export Type'); ?>
-                </label>
-                <br>
-                <select name="" id="">
-                    <?php foreach ($this->getExportType() as $type): ?>
-                        <option value="<?php echo $type['value']?>"><?php echo $type['label']?></option>
-                    <?php endforeach;?>
-                </select>
+        <form method="POST" action="<?php echo $block->getUrl('kodhub_reporter/report/download') ?>"
+              id="generate-report-form">
+            <div class="left-container">
+                <?php if (!empty($reportEntity->getQueryParameters()) && count($reportEntity->getQueryParameters()) > 0): ?>
+                    <?php foreach ($reportEntity->getQueryParameters() as $parameter): ?>
+                        <div class="form-group">
+                            <label for="<?php echo $parameter['key']; ?>">
+                                <?php echo $parameter['label']; ?>
+                            </label>
+                            <br>
+                            <input type="<?php echo $parameter['type']; ?>"
+                                   name="parameters[<?php echo $parameter["key"]; ?>]"
+                                   placeholder="<?php echo $parameter['label']; ?>"
+                                   required>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <?php echo __('Not found parameter.'); ?>
+                <?php endif; ?>
             </div>
-        </div>
-        <div class="right-container"></div>
+            <div class="center-container">
+                <div class="form-group">
+                    <label for="export_type">
+                        <?php echo __('Export Type'); ?>
+                    </label>
+                    <br>
+                    <select name="export_type" id="">
+                        <?php foreach ($this->getExportType() as $type): ?>
+                            <option value="<?php echo $type['value'] ?>"><?php echo $type['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <input type="hidden" name="report_id" value="<?php echo $reportEntity->getReportId()?>">
+            </div>
+            <div class="right-container">
+                <div class="log-container">
+
+                </div>
+            </div>
+        </form>
     <?php else: ?>
         <div class="text-center">
             <h3><?php echo __('This report is disabled.') ?></h3>

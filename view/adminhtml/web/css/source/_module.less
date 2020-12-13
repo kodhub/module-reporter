@@ -12,19 +12,41 @@
 .kodhub-reporter-generate-report-container {
     display: flex;
 
-    div {
-        margin-right: 10px;
-        width: 31%;
-    }
+    form {
+        display: flex;
+        width: 100%;
 
-    .form-group {
-        margin-bottom: 10px;
-        label {
-            font-weight: 600;
+        div {
+            margin-right: 10px;
+            width: 31%;
         }
-        input {
-            width: 300px;
+
+        .form-group {
+            margin-bottom: 10px;
+            label {
+                font-weight: 600;
+            }
+            input {
+                width: 300px;
+            }
+        }
+
+        .right-container {
+            .log-container {
+                width: 100%;
+                padding: 15px;
+                overflow-wrap: break-word;
+            }
+
+            .log-container.error {
+                background: black;
+                color: red;
+            }
+
+            .log-container.success {
+                background: black;
+                color: green;
+            }
         }
     }
-
 }

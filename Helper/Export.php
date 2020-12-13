@@ -56,6 +56,11 @@ class Export extends AbstractHelper
     protected $_csvProcessor;
 
     /**
+     * @var array
+     */
+    protected $queryParameters;
+
+    /**
      * @param \Magento\Framework\App\Helper\Context $context
      */
     public function __construct(
@@ -81,11 +86,13 @@ class Export extends AbstractHelper
     /**
      * @param int $reportId
      * @param int $exportType
-     * @param array|string $parameters
+     * @param array $parameters
      */
     public function export(int $reportId, int $exportType, array $parameters = [])
     {
         $exportFile = NULL;
+
+        $this->queryParameters = $parameters;
 
         $this->reportEntity = $this->reportRepository->get($reportId);
 
@@ -94,9 +101,27 @@ class Export extends AbstractHelper
             [
                 'report' => $this->reportEntity,
                 'exportType' => $exportType,
-                'parameters' => $parameters
+                'parameters' => $this->queryParameters
             ]
         );
+
+        if ($this->reportEntity->getQueryParameters()) {
+            $requiredParameters = [];
+            foreach ($this->reportEntity->getQueryParameters() as $queryParameter) {
+                if (
+                    !isset($this->queryParameters[$queryParameter['key']]) ||
+                    $this->queryParameters[$queryParameter['key']] === '' ||
+                    $this->queryParameters[$queryParameter['key']] == NULL
+                ) {
+                    $requiredParameters[] = $queryParameter["label"] . ' --parameters[' . $queryParameter["key"] . '] is required.';
+                }
+            }
+
+            if (count($requiredParameters) > 0) {
+                $requiredParameters[] = __('This report cannot be exported from the command line and via cron. Because it is a parametric report.');
+                throw new \Exception(implode(PHP_EOL, $requiredParameters));
+            }
+        }
 
         switch ($exportType) {
             case self::EXPORT_CSV:
@@ -126,7 +151,7 @@ class Export extends AbstractHelper
             ]
         );
 
-        return $exportFile;
+        return str_replace($this->_directoryList->getPath($this->_directoryList::PUB) . DS, $this->_urlBuilder->getBaseUrl(), $exportFile);
     }
 
     /**
@@ -175,36 +200,36 @@ class Export extends AbstractHelper
 
         $this->_fileFolder->touch($filePath);
 
-        $html = "<table><caption>" . __('Report') . " " . $this->reportEntity->getName() . "</caption>" . PHP_EOL;
+        $html = " < table><caption > " . __('Report') . " " . $this->reportEntity->getName() . " </caption > " . PHP_EOL;
 
-        $html .= "<thead>" . PHP_EOL;
+        $html .= "<thead > " . PHP_EOL;
 
         foreach ($this->getResult() as $key => $result) {
             if ($key == 0) {
                 foreach ($result as $colKey => $col) {
-                    $html .= "<th style='border: 1px solid #000;min-width: 50px'>" . $colKey . "</th>" . PHP_EOL;
+                    $html .= "<th style = 'border: 1px solid #000;min-width: 50px' > " . $colKey . "</th > " . PHP_EOL;
                 }
                 break;
             }
         }
 
-        $html .= "</thead>" . PHP_EOL;
+        $html .= "</thead > " . PHP_EOL;
 
-        $html .= "<tbody>" . PHP_EOL;
+        $html .= "<tbody > " . PHP_EOL;
 
         foreach ($this->getResult() as $key => $result) {
-            $html .= "<tr>" . PHP_EOL;
+            $html .= "<tr > " . PHP_EOL;
 
             foreach ($result as $col) {
-                $html .= "<td style='border: 1px solid #000;min-width: 50px'>" . $col . "</td>" . PHP_EOL;
+                $html .= "<td style = 'border: 1px solid #000;min-width: 50px' > " . $col . "</td > " . PHP_EOL;
             }
 
-            $html .= "</tr>" . PHP_EOL;
+            $html .= "</tr > " . PHP_EOL;
         }
 
-        $html .= "<tbody>" . PHP_EOL;
+        $html .= "<tbody > " . PHP_EOL;
 
-        $html .= "</table>";
+        $html .= "</table > ";
 
         $this->_fileFolder->writeFile($filePath, $html);
 
@@ -242,10 +267,20 @@ class Export extends AbstractHelper
     {
         $query = $this->reportEntity->getQuery();
 
+        if (
+            isset($this->queryParameters) &&
+            is_array($this->queryParameters) &&
+            count($this->queryParameters) > 0
+        ) {
+            foreach ($this->queryParameters as $key => $queryParameter) {
+                $query = str_replace('{{' . $key . '}}', $queryParameter, $query);
+            }
+        }
+
         $result = $this->_connection->query($query)->fetchAll();
 
         if (count($result) < 1) {
-            throw new \Exception('Not found record.');
+            throw new \Exception('No records were found for this query.');
         }
 
         return $result;
@@ -266,6 +301,15 @@ class Export extends AbstractHelper
             'report_' . $this->reportEntity->getReportId() . '_' . date('Ymdhis'),
             $format
         );
+    }
+
+    /**
+     * @param string $url
+     */
+    public function getFilenameFromUrl(string $url)
+    {
+        $parse = explode('/', $url);
+        return $parse[count($parse) - 1];
     }
 }
 

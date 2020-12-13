@@ -7,7 +7,9 @@ declare(strict_types=1);
 
 namespace Kodhub\Reporter\Console\Command;
 
+use Kodhub\Reporter\Model\ReportRepository;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -17,6 +19,7 @@ class Export extends Command
 {
     const REPORTID_OPTION = "report_id";
     const EXPORTTYPE_OPTION = "export_type";
+    const PARAMTERS_OPTION = "parameters";
 
     /**
      * {@inheritdoc}
@@ -58,7 +61,7 @@ class Export extends Command
 
         $exportType = array_search($exportType, $exportTypes);
 
-        $exportFile = $exportHelper->export((int) $reportId, (int) $exportType);
+        $exportFile = $exportHelper->export((int)$reportId, (int)$exportType);
 
         $output->writeln("Generate report file ->  " . $exportFile);
     }
@@ -80,7 +83,7 @@ class Export extends Command
         $availableFormats = implode(',', $exportTypeSource->toArray());
         $this->setDefinition([
             new InputOption(self::REPORTID_OPTION, "-i", InputOption::VALUE_REQUIRED, "Report ID"),
-            new InputOption(self::EXPORTTYPE_OPTION, "-e", InputOption::VALUE_REQUIRED, "Export Type (available: " . $availableFormats)
+            new InputOption(self::EXPORTTYPE_OPTION, "-e", InputOption::VALUE_REQUIRED, "Export Type (available: " . $availableFormats),
         ]);
         parent::configure();
     }
