@@ -1,4 +1,6 @@
 <!--@subject {{trans "Auto Generated Report - %name" name=$report_name}} @-->
+{{template config_path="design/email/header_template"}}
+
 <div class="">
     <h3>{{var report_name}}</h3>
     <p>{{var report_description}}</p>
@@ -10,3 +12,5 @@
         <strong>{{trans "Generated date"}}:</strong> {{var generated_date}}
     </p>
 </div>
+
+{{template config_path="design/email/footer_template"}}
