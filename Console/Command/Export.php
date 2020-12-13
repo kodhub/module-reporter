@@ -63,6 +63,11 @@ class Export extends Command
 
         $exportFile = $exportHelper->export((int)$reportId, (int)$exportType);
 
+        /**
+         * TODO @ismailcaakir
+         * İsteğe bağlı email gönderme özelliği eklenecek..
+         */
+
         $output->writeln("Generate report file ->  " . $exportFile);
     }
 
