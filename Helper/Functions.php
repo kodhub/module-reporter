@@ -20,5 +20,39 @@ class Functions extends AbstractHelper
     ) {
         parent::__construct($context);
     }
+
+    /**
+     * @param string $frequency
+     * @param bool $time
+     * @return mixed
+     */
+    function shouldCronWork($frequency = '* * * * *', $time = false)
+    {
+        $time = is_string($time) ? strtotime($time) : time();
+        $time = explode(' ', date('i G j n w', $time));
+        $time[0] = $time[0] + 0;
+        $crontab = explode(' ', $frequency);
+        foreach ($crontab as $k => &$v) {
+            $v = explode(',', $v);
+            $regexps = array(
+                '/^\*$/', # every
+                '/^\d+$/', # digit
+                '/^(\d+)\-(\d+)$/', # range
+                '/^\*\/(\d+)$/' # every digit
+            );
+            $time[$k] = $time[$k] + 0;
+            $content = array(
+                "true", # every
+                "{$time[$k]} === $0", # digit
+                "($1 <= {$time[$k]} && {$time[$k]} <= $2)", # range
+                "{$time[$k]} % $1 === 0" # every digit
+            );
+            foreach ($v as &$v1)
+                $v1 = preg_replace($regexps, $content, $v1);
+            $v = '('.implode(' || ', $v).')';
+        }
+        $crontab = implode(' && ', $crontab);
+        return eval("return {$crontab};");
+    }
 }
 

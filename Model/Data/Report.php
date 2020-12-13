@@ -114,7 +114,7 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
      */
     public function getCronEmailList()
     {
-        return json_decode($this->_get(self::CRON_EMAIL_LIST));
+        return json_decode($this->_get(self::CRON_EMAIL_LIST), true);
     }
 
     /**
