@@ -3,13 +3,13 @@
 	<route method="GET" url="/V1/kodhub-reporter/export">
 		<service class="Kodhub\Reporter\Api\ExportManagementInterface" method="getExport"/>
 		<resources>
-			<resource ref="anonymous"/>
+			<resource ref="Kodhub_Reporter::Report_export"/>
 		</resources>
 	</route>
 	<route method="GET" url="/V1/kodhub-reporter/reports">
 		<service class="Kodhub\Reporter\Api\ReportsManagementInterface" method="getReports"/>
 		<resources>
-			<resource ref="anonymous"/>
+			<resource ref="Kodhub_Reporter::Report_export"/>
 		</resources>
 	</route>
 	<route method="POST" url="/V1/kodhub-reporter/report">

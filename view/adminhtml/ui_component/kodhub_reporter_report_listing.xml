@@ -162,7 +162,7 @@
                 </item>
             </argument>
         </actionsColumn>
-        <actionsColumn class="Kodhub\Reporter\Ui\Component\Listing\Column\ReportActions" name="zzactions">
+        <actionsColumn class="Kodhub\Reporter\Ui\Component\Listing\Column\ReportActions" name="actions">
             <settings>
                 <indexField>report_id</indexField>
                 <resizeEnabled>false</resizeEnabled>

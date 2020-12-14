@@ -13,12 +13,9 @@ use Magento\Framework\Api\DataObjectHelper;
 
 class Log extends \Magento\Framework\Model\AbstractModel
 {
-
     protected $dataObjectHelper;
-
     protected $_eventPrefix = 'kodhub_reporter_log';
     protected $logDataFactory;
-
 
     /**
      * @param \Magento\Framework\Model\Context $context
@@ -40,6 +37,7 @@ class Log extends \Magento\Framework\Model\AbstractModel
     ) {
         $this->logDataFactory = $logDataFactory;
         $this->dataObjectHelper = $dataObjectHelper;
+
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -50,15 +48,13 @@ class Log extends \Magento\Framework\Model\AbstractModel
     public function getDataModel()
     {
         $logData = $this->getData();
-        
         $logDataObject = $this->logDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $logDataObject,
             $logData,
             LogInterface::class
         );
-        
+
         return $logDataObject;
     }
 }
-

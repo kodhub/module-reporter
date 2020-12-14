@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @category  Kodhub
+ * @package   Kodhub_Reporter
+ * @copyright Copyright © ismail cakir All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Kodhub\Reporter\Api\Data\LogInterface" type="Kodhub\Reporter\Model\Data\Log"/>
+    <preference for="Kodhub\Reporter\Api\Data\LogSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Kodhub\Reporter\Api\Data\ReportInterface" type="Kodhub\Reporter\Model\Data\Report"/>
+    <preference for="Kodhub\Reporter\Api\Data\ReportSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Kodhub\Reporter\Api\ExportManagementInterface" type="Kodhub\Reporter\Model\ExportManagement"/>
+    <preference for="Kodhub\Reporter\Api\ReportsManagementInterface" type="Kodhub\Reporter\Model\ReportsManagement"/>
+    <preference for="Kodhub\Reporter\Api\ReportRepositoryInterface" type="Kodhub\Reporter\Model\ReportRepository"/>
+    <preference for="Kodhub\Reporter\Api\LogRepositoryInterface" type="Kodhub\Reporter\Model\LogRepository"/>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="Export" xsi:type="object">Kodhub\Reporter\Console\Command\Export</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Kodhub\Reporter\Model\ResourceModel\Report\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">kodhub_reporter_report</argument>
+            <argument name="resourceModel" xsi:type="string">Kodhub\Reporter\Model\ResourceModel\Report\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="kodhub_reporter_report_listing_data_source" xsi:type="string">Kodhub\Reporter\Model\ResourceModel\Report\Grid\Collection</item>
+                <item name="kodhub_reporter_log_listing_data_source" xsi:type="string">Kodhub\Reporter\Model\ResourceModel\Log\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Kodhub\Reporter\Model\ResourceModel\Log\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">kodhub_reporter_log</argument>
+            <argument name="resourceModel" xsi:type="string">Kodhub\Reporter\Model\ResourceModel\Log\Collection</argument>
+        </arguments>
+    </virtualType>
+</config>

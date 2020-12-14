@@ -8,10 +8,9 @@ declare(strict_types=1);
 namespace Kodhub\Reporter\Model\Data;
 
 use Kodhub\Reporter\Api\Data\LogInterface;
-
+//@todo @emrah \Magento\Framework\Model\AbstractExtensibleModel
 class Log extends \Magento\Framework\Api\AbstractExtensibleObject implements LogInterface
 {
-
     /**
      * Get log_id
      * @return string|null
@@ -91,6 +90,8 @@ class Log extends \Magento\Framework\Api\AbstractExtensibleObject implements Log
 
     /**
      * Get error
+     * //@todo change field name hasError
+     *
      * @return string|null
      */
     public function getError()
@@ -176,6 +177,7 @@ class Log extends \Magento\Framework\Api\AbstractExtensibleObject implements Log
 
     /**
      * Set cron_is_run
+     * //@todo changeField name $isCron
      * @param string $cronIsRun
      * @return \Kodhub\Reporter\Api\Data\LogInterface
      */

@@ -19,6 +19,7 @@
                         <resource id="Kodhub_Reporter::Report_delete" sortOrder="20" title="Delete Report"/>
                         <resource id="Kodhub_Reporter::Report_update" sortOrder="30" title="Update Report"/>
                         <resource id="Kodhub_Reporter::Report_view" sortOrder="40" title="View Report"/>
+                        <resource id="Kodhub_Reporter::Report_export" sortOrder="40" title="Export Report"/>
                         <resource id="Kodhub_Reporter::Log" sortOrder="50" title="Log View">
                             <resource id="Kodhub_Reporter::Log_save" sortOrder="10" title="Save Log"/>
                             <resource id="Kodhub_Reporter::Log_delete" sortOrder="20" title="Delete Log"/>

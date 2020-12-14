@@ -11,7 +11,6 @@ use Kodhub\Reporter\Api\Data\ReportInterface;
 
 class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements ReportInterface
 {
-
     /**
      * Get report_id
      * @return string|null

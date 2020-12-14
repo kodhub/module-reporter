@@ -9,7 +9,6 @@ namespace Kodhub\Reporter\Model;
 
 class ExportManagement implements \Kodhub\Reporter\Api\ExportManagementInterface
 {
-
     /**
      * {@inheritdoc}
      */
@@ -18,4 +17,3 @@ class ExportManagement implements \Kodhub\Reporter\Api\ExportManagementInterface
         return 'hello api GET return the $param ' . $param;
     }
 }
-

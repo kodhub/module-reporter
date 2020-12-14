@@ -24,28 +24,17 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class LogRepository implements LogRepositoryInterface
 {
-
-    protected $dataObjectHelper;
-
     private $storeManager;
-
+    private $collectionProcessor;
+    protected $dataObjectHelper;
     protected $dataObjectProcessor;
-
     protected $dataLogFactory;
-
     protected $extensionAttributesJoinProcessor;
-
     protected $resource;
-
     protected $logFactory;
-
     protected $logCollectionFactory;
-
     protected $extensibleDataObjectConverter;
     protected $searchResultsFactory;
-
-    private $collectionProcessor;
-
 
     /**
      * @param ResourceLog $resource
@@ -72,7 +61,8 @@ class LogRepository implements LogRepositoryInterface
         CollectionProcessorInterface $collectionProcessor,
         JoinProcessorInterface $extensionAttributesJoinProcessor,
         ExtensibleDataObjectConverter $extensibleDataObjectConverter
-    ) {
+    )
+    {
         $this->resource = $resource;
         $this->logFactory = $logFactory;
         $this->logCollectionFactory = $logCollectionFactory;
@@ -91,21 +81,22 @@ class LogRepository implements LogRepositoryInterface
      */
     public function save(
         \Kodhub\Reporter\Api\Data\LogInterface $log
-    ) {
+    )
+    {
         /* if (empty($log->getStoreId())) {
             $storeId = $this->storeManager->getStore()->getId();
             $log->setStoreId($storeId);
         } */
-        
         $logData = $this->extensibleDataObjectConverter->toNestedArray(
             $log,
             [],
             \Kodhub\Reporter\Api\Data\LogInterface::class
         );
-        
+
         $logModel = $this->logFactory->create()->setData($logData);
-        
+
         try {
+            //@todo use resourceFactory
             $this->resource->save($logModel);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__(
@@ -113,6 +104,7 @@ class LogRepository implements LogRepositoryInterface
                 $exception->getMessage()
             ));
         }
+
         return $logModel->getDataModel();
     }
 
@@ -126,6 +118,7 @@ class LogRepository implements LogRepositoryInterface
         if (!$log->getId()) {
             throw new NoSuchEntityException(__('Log with id "%1" does not exist.', $logId));
         }
+
         return $log->getDataModel();
     }
 
@@ -134,26 +127,26 @@ class LogRepository implements LogRepositoryInterface
      */
     public function getList(
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
-    ) {
+    )
+    {
         $collection = $this->logCollectionFactory->create();
-        
         $this->extensionAttributesJoinProcessor->process(
             $collection,
             \Kodhub\Reporter\Api\Data\LogInterface::class
         );
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
-        
+
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model->getDataModel();
         }
-        
+
         $searchResults->setItems($items);
         $searchResults->setTotalCount($collection->getSize());
+
         return $searchResults;
     }
 
@@ -162,7 +155,8 @@ class LogRepository implements LogRepositoryInterface
      */
     public function delete(
         \Kodhub\Reporter\Api\Data\LogInterface $log
-    ) {
+    )
+    {
         try {
             $logModel = $this->logFactory->create();
             $this->resource->load($logModel, $log->getLogId());
@@ -173,6 +167,7 @@ class LogRepository implements LogRepositoryInterface
                 $exception->getMessage()
             ));
         }
+
         return true;
     }
 

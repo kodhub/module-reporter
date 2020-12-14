@@ -9,7 +9,6 @@ namespace Kodhub\Reporter\Model;
 
 class ReportsManagement implements \Kodhub\Reporter\Api\ReportsManagementInterface
 {
-
     /**
      * {@inheritdoc}
      */
@@ -18,4 +17,3 @@ class ReportsManagement implements \Kodhub\Reporter\Api\ReportsManagementInterfa
         return 'hello api GET return the $param ' . $param;
     }
 }
-
