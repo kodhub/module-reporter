@@ -9,7 +9,6 @@ namespace Kodhub\Reporter\Model\ResourceModel\Report;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
-
     /**
      * @var string
      */
@@ -28,4 +27,3 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         );
     }
 }
-

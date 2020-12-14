@@ -9,7 +9,6 @@ namespace Kodhub\Reporter\Model\ResourceModel;
 
 class Report extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
-
     /**
      * Define resource model
      *
@@ -20,4 +19,3 @@ class Report extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         $this->_init('kodhub_reporter_report', 'report_id');
     }
 }
-

@@ -24,27 +24,17 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class ReportRepository implements ReportRepositoryInterface
 {
-
-    protected $dataObjectHelper;
-
+    private $collectionProcessor;
     private $storeManager;
-
+    protected $dataObjectHelper;
     protected $dataObjectProcessor;
-
     protected $extensionAttributesJoinProcessor;
-
     protected $resource;
-
     protected $reportFactory;
-
     protected $reportCollectionFactory;
-
     protected $extensibleDataObjectConverter;
     protected $searchResultsFactory;
-
     protected $dataReportFactory;
-
-    private $collectionProcessor;
 
 
     /**
@@ -113,6 +103,7 @@ class ReportRepository implements ReportRepositoryInterface
                 $exception->getMessage()
             ));
         }
+
         return $reportModel->getDataModel();
     }
 
@@ -126,6 +117,7 @@ class ReportRepository implements ReportRepositoryInterface
         if (!$report->getId()) {
             throw new NoSuchEntityException(__('Report with id "%1" does not exist.', $reportId));
         }
+
         return $report->getDataModel();
     }
 
@@ -154,6 +146,7 @@ class ReportRepository implements ReportRepositoryInterface
 
         $searchResults->setItems($items);
         $searchResults->setTotalCount($collection->getSize());
+
         return $searchResults;
     }
 
@@ -173,6 +166,7 @@ class ReportRepository implements ReportRepositoryInterface
                 $exception->getMessage()
             ));
         }
+
         return true;
     }
 
@@ -184,4 +178,3 @@ class ReportRepository implements ReportRepositoryInterface
         return $this->delete($this->get($reportId));
     }
 }
-

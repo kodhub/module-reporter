@@ -13,12 +13,9 @@ use Magento\Framework\Api\DataObjectHelper;
 
 class Report extends \Magento\Framework\Model\AbstractModel
 {
-
     protected $dataObjectHelper;
-
     protected $_eventPrefix = 'kodhub_reporter_report';
     protected $reportDataFactory;
-
 
     /**
      * @param \Magento\Framework\Model\Context $context
@@ -40,6 +37,7 @@ class Report extends \Magento\Framework\Model\AbstractModel
     ) {
         $this->reportDataFactory = $reportDataFactory;
         $this->dataObjectHelper = $dataObjectHelper;
+
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -50,14 +48,13 @@ class Report extends \Magento\Framework\Model\AbstractModel
     public function getDataModel()
     {
         $reportData = $this->getData();
-        
         $reportDataObject = $this->reportDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $reportDataObject,
             $reportData,
             ReportInterface::class
         );
-        
+
         return $reportDataObject;
     }
 }

@@ -9,7 +9,6 @@ namespace Kodhub\Reporter\Model\ResourceModel;
 
 class Log extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
-
     /**
      * Define resource model
      *
@@ -20,4 +19,3 @@ class Log extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         $this->_init('kodhub_reporter_log', 'log_id');
     }
 }
-

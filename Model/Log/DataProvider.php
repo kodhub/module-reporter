@@ -12,11 +12,8 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
-
     protected $collection;
-
     protected $dataPersistor;
-
     protected $loadedData;
 
     /**
@@ -59,15 +56,14 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
             $this->loadedData[$model->getId()] = $model->getData();
         }
         $data = $this->dataPersistor->get('kodhub_reporter_log');
-        
+
         if (!empty($data)) {
             $model = $this->collection->getNewEmptyItem();
             $model->setData($data);
             $this->loadedData[$model->getId()] = $model->getData();
             $this->dataPersistor->clear('kodhub_reporter_log');
         }
-        
+
         return $this->loadedData;
     }
 }
-

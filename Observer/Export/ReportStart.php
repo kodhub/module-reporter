@@ -9,7 +9,6 @@ namespace Kodhub\Reporter\Observer\Export;
 
 class ReportStart implements \Magento\Framework\Event\ObserverInterface
 {
-
     /**
      * Execute observer
      *
@@ -22,4 +21,3 @@ class ReportStart implements \Magento\Framework\Event\ObserverInterface
         //Your observer code
     }
 }
-

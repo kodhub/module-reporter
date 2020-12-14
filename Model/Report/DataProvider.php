@@ -12,11 +12,8 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
-
     protected $collection;
-
     protected $dataPersistor;
-
     protected $loadedData;
 
     /**
@@ -38,9 +35,11 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         DataPersistorInterface $dataPersistor,
         array $meta = [],
         array $data = []
-    ) {
+    )
+    {
         $this->collection = $collectionFactory->create();
         $this->dataPersistor = $dataPersistor;
+
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
@@ -76,11 +75,12 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      */
     private function dataSerialize($data)
     {
-        if(isset($data['query_parameters'])) {
+        if (isset($data['query_parameters'])) {
+            //@todo use serializer object
             $data['query_parameters_container'] = json_decode($data['query_parameters'], true);
         }
 
-        if(isset($data['cron_email_list'])) {
+        if (isset($data['cron_email_list'])) {
             $data['cron_email_list_container'] = json_decode($data['cron_email_list'], true);
         }
 
