@@ -16,13 +16,5 @@
              resource="Kodhub_Reporter::Report"
              sortOrder="10"
              title="Reporter Management"/>
-
-        <add action="kodhub_reporter/log/index"
-             id="Kodhub_Reporter::kodhub_reporter_log"
-             module="Kodhub_Reporter"
-             parent="Kodhub_Reporter::reporter_top_level"
-             resource="Kodhub_Reporter::Log"
-             sortOrder="20"
-             title="Reporter Logs"/>
     </menu>
 </config>
