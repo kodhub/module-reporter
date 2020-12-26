@@ -42,34 +42,4 @@
 			<resource ref="Kodhub_Reporter::Report_delete"/>
 		</resources>
 	</route>
-	<route method="POST" url="/V1/kodhub-reporter/log">
-		<service class="Kodhub\Reporter\Api\LogRepositoryInterface" method="save"/>
-		<resources>
-			<resource ref="Kodhub_Reporter::Log_save"/>
-		</resources>
-	</route>
-	<route method="GET" url="/V1/kodhub-reporter/log/search">
-		<service class="Kodhub\Reporter\Api\LogRepositoryInterface" method="getList"/>
-		<resources>
-			<resource ref="Kodhub_Reporter::Log_view"/>
-		</resources>
-	</route>
-	<route method="GET" url="/V1/kodhub-reporter/log/:logId">
-		<service class="Kodhub\Reporter\Api\LogRepositoryInterface" method="get"/>
-		<resources>
-			<resource ref="Kodhub_Reporter::Log_view"/>
-		</resources>
-	</route>
-	<route method="PUT" url="/V1/kodhub-reporter/log/:logId">
-		<service class="Kodhub\Reporter\Api\LogRepositoryInterface" method="save"/>
-		<resources>
-			<resource ref="Kodhub_Reporter::Log_update"/>
-		</resources>
-	</route>
-	<route method="DELETE" url="/V1/kodhub-reporter/log/:logId">
-		<service class="Kodhub\Reporter\Api\LogRepositoryInterface" method="deleteById"/>
-		<resources>
-			<resource ref="Kodhub_Reporter::Log_delete"/>
-		</resources>
-	</route>
 </routes>
