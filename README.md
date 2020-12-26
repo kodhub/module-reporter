@@ -8,6 +8,8 @@
 
 A simple magento2 admin extension that allows you to output with SQL commands you create.
 
+🔥 Easy to install and management. 🔥 
+
 ## Installation
 
 Install via composer
@@ -19,9 +21,21 @@ After run composer code
 `bin/magento setup:upgrade`
 
 ## Features
-....
+✅Export as Excel
+
+✅Export as Csv
+
+✅Export as Json
+
+✅Export as Html
+
+**via cron or manuel.**
+
+## Upcoming Features
+💠 Export as XML
+
 ## Videos
 ....
-## Upcoming Features
-....
+
 ## Known issues
+...
