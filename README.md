@@ -10,6 +10,10 @@ A simple magento2 admin extension that allows you to output with SQL commands yo
 
 🔥 Easy to install and management. 🔥 
 
+![Join Discord Channel](https://discord.gg/8sRKq5nh)
+
+Usage video [Watch on Youtube](https://www.youtube.com/watch?v=beaeuj5MIlU&feature=youtu.be&ab_channel=%C4%B0smail%C3%87ak%C4%B1r)
+
 ## Installation
 
 Install via composer
