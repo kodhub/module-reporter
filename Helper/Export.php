@@ -88,6 +88,8 @@ class Export extends AbstractHelper
      * @param int $reportId
      * @param int $exportType
      * @param array $parameters
+     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws \Zend_Db_Statement_Exception
      */
     public function export(int $reportId, int $exportType, array $parameters = [])
     {
@@ -155,7 +157,7 @@ class Export extends AbstractHelper
         $this->reportEntity->setLastRunDate(date('Y-m-d H:i:s'));
         $this->reportRepository->save($this->reportEntity);
 
-        return str_replace($this->_directoryList->getPath($this->_directoryList::PUB) . DS, $this->_urlBuilder->getBaseUrl(), $exportFile);
+        return str_replace($this->_directoryList->getPath($this->_directoryList::PUB) . DS, $this->scopeConfig->getValue('web/secure/base_url'), $exportFile);
     }
 
     /**

@@ -15,10 +15,10 @@
 		<column length="250" name="name" nullable="false" comment="Report Name" xsi:type="varchar"/>
         <column length="255" name="description" nullable="true"  comment="Report Description" xsi:type="varchar"/>
         <column default="0" name="status" nullable="true" comment="Report Status" xsi:type="boolean"/>
-        <column length="65000" name="query" nullable="false" comment="Report Query" xsi:type="text"/>
-        <column length="65000" name="query_parameters" nullable="true" comment="Report Query Parameters" xsi:type="text"/>
-		<column default="0" name="cron_status" nullable="false" unsigned="true" comment="Report Cron Status" xsi:type="boolean"/>
-		<column length="65000" name="cron_email_list" nullable="true" comment="Report Sent Email Addresses" xsi:type="text"/>
+        <column name="query" nullable="false" comment="Report Query" xsi:type="text"/>
+        <column name="query_parameters" nullable="true" comment="Report Query Parameters" xsi:type="text"/>
+		<column default="0" name="cron_status" nullable="false" comment="Report Cron Status" xsi:type="boolean"/>
+		<column name="cron_email_list" nullable="true" comment="Report Sent Email Addresses" xsi:type="text"/>
 		<column default="00 04 * * *" length="255" name="cron_expression" comment="Cron Expression Format" nullable="true" xsi:type="varchar"/>
         <column default="1" identity="false" name="cron_export_type" nullable="true" comment="Cron Export Type" xsi:type="int"/>
         <column name="last_run_date" nullable="true" comment="Last Run Date" xsi:type="timestamp"/>

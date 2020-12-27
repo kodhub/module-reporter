@@ -1,4 +1,4 @@
-## Reporting Tool For Magento2 with Cron
+## Magento2 Reporting Tool For Magento2 with Cron
 
 ![Packagist Version](https://img.shields.io/packagist/v/kodhub/module-reporter)
 ![Packagist Version](https://img.shields.io/badge/magento2-2.3~-red)
@@ -35,7 +35,8 @@ After run composer code
 💠 Export as XML
 
 ## Videos
-....
+
+Usage video [Watch on Youtube](https://www.youtube.com/watch?v=beaeuj5MIlU&feature=youtu.be&ab_channel=%C4%B0smail%C3%87ak%C4%B1r)
 
 ## Known issues
 ...
