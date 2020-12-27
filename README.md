@@ -1,4 +1,4 @@
-## Magento2 Reporting Tool For Magento2 with Cron
+## Reporting Tool For Magento2 with Cron
 
 ![Packagist Version](https://img.shields.io/packagist/v/kodhub/module-reporter)
 ![Packagist Version](https://img.shields.io/badge/magento2-2.3~-red)
