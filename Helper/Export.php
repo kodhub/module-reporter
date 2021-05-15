@@ -206,36 +206,36 @@ class Export extends AbstractHelper
 
         $this->_fileFolder->touch($filePath);
 
-        $html = " < table><caption > " . __('Report') . " " . $this->reportEntity->getName() . " </caption > " . PHP_EOL;
+        $html = " <table><caption> " . __('Report') . " " . $this->reportEntity->getName() . " </caption> " . PHP_EOL;
 
-        $html .= "<thead > " . PHP_EOL;
+        $html .= "<thead> " . PHP_EOL;
 
         foreach ($this->getResult() as $key => $result) {
             if ($key == 0) {
                 foreach ($result as $colKey => $col) {
-                    $html .= "<th style = 'border: 1px solid #000;min-width: 50px' > " . $colKey . "</th > " . PHP_EOL;
+                    $html .= "<th style = 'border: 1px solid #000;min-width: 50px' > " . $colKey . "</th> " . PHP_EOL;
                 }
                 break;
             }
         }
 
-        $html .= "</thead > " . PHP_EOL;
+        $html .= "</thead> " . PHP_EOL;
 
-        $html .= "<tbody > " . PHP_EOL;
+        $html .= "<tbody> " . PHP_EOL;
 
         foreach ($this->getResult() as $key => $result) {
-            $html .= "<tr > " . PHP_EOL;
+            $html .= "<tr> " . PHP_EOL;
 
             foreach ($result as $col) {
-                $html .= "<td style = 'border: 1px solid #000;min-width: 50px' > " . $col . "</td > " . PHP_EOL;
+                $html .= "<td style = 'border: 1px solid #000;min-width: 50px' > " . $col . "</td> " . PHP_EOL;
             }
 
-            $html .= "</tr > " . PHP_EOL;
+            $html .= "</tr> " . PHP_EOL;
         }
 
-        $html .= "<tbody > " . PHP_EOL;
+        $html .= "<tbody> " . PHP_EOL;
 
-        $html .= "</table > ";
+        $html .= "</table> ";
 
         $this->_fileFolder->writeFile($filePath, $html);
 
