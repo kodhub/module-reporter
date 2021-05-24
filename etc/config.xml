@@ -3,7 +3,7 @@
 	<default>
 		<reporter>
 			<general>
-				<example/>
+                <file_clear_period>7</file_clear_period>
 			</general>
 			<cron>
 				<enable/>

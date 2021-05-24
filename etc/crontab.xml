@@ -4,8 +4,8 @@
 		<job instance="Kodhub\Reporter\Cron\Email" method="execute" name="kodhub_reporter_email">
 			<schedule>* * * * *</schedule>
 		</job>
-		<job instance="Kodhub\Reporter\Cron\DeleteFile" method="execute" name="kodhub_reporter_deletefile">
-			<schedule>*/5 * * * *</schedule>
+		<job instance="Kodhub\Reporter\Cron\FileClear" method="execute" name="kodhub_reporter_file_clear">
+			<schedule>* * * * *</schedule>
 		</job>
 	</group>
 </config>

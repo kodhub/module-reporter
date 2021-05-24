@@ -54,5 +54,23 @@ class Functions extends AbstractHelper
         $crontab = implode(' && ', $crontab);
         return eval("return {$crontab};");
     }
+
+    /**
+     * @param $days
+     * @param string $format
+     * @return array
+     */
+    public function getLastNDays($days, $format = "Ymd")
+    {
+        $m = date("m");
+        $de = date("d");
+        $y = date("Y");
+
+        $dateArray = array();
+        for ($i = 0; $i <= $days - 1; $i++) {
+            $dateArray[] = '"' . date($format, mktime(0, 0, 0, (int)$m, ($de - $i), (int)$y)) . '"';
+        }
+        return array_reverse($dateArray);
+    }
 }
 
