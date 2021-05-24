@@ -5,7 +5,7 @@
 			<schedule>* * * * *</schedule>
 		</job>
 		<job instance="Kodhub\Reporter\Cron\FileClear" method="execute" name="kodhub_reporter_file_clear">
-			<schedule>* * * * *</schedule>
+			<schedule>00 00 * * *</schedule>
 		</job>
 	</group>
 </config>
