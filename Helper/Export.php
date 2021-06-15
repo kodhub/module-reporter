@@ -206,7 +206,8 @@ class Export extends AbstractHelper
 
         $this->_fileFolder->touch($filePath);
 
-        $html = " <table><caption> " . __('Report') . " " . $this->reportEntity->getName() . " </caption> " . PHP_EOL;
+        $html = "<style>td{padding:10px;border:2px solid #eee!important;font-size:initial}tr{border:1px solid #00}th{background:#000;border:1px solid #000!important;color:#fff;padding:10px}body{font-family:Tahoma}caption{font-size:40px;text-align:left;margin-bottom:20px}</style>
+                <table><caption> " . __('Report') . " " . $this->reportEntity->getName() . " </caption> " . PHP_EOL;
 
         $html .= "<thead> " . PHP_EOL;
 
