@@ -52,10 +52,17 @@ class Download extends Action
                     is_array($this->getRequest()->getParam('parameters')) ? $this->getRequest()->getParam('parameters') : []
                 );
 
-                return $resultJson->setStatusHeader(200)->setData([
-                    'exportFile' => $exportFile,
-                    'filename'   => $this->exportHelper->getFilenameFromUrl($exportFile)
+                if ($exportFile) {
+                    return $resultJson->setStatusHeader(200)->setData([
+                        'exportFile' => $exportFile,
+                        'filename' => $this->exportHelper->getFilenameFromUrl($exportFile)
+                    ]);
+                }
+
+                return $resultJson->setStatusHeader(500)->setData([
+                    'message' => 'No records were found for this query.'
                 ]);
+
             } catch (\Exception $exception) {
                 return $resultJson->setStatusHeader(500)->setData([
                     'message' => $exception->getMessage()

@@ -126,22 +126,24 @@ class Export extends AbstractHelper
             }
         }
 
-        switch ($exportType) {
-            case self::EXPORT_CSV:
-                $exportFile = $this->exportCsv();
-                break;
-            case self::EXPORT_EXCEL:
-                $exportFile = $this->exportExcel();
-                break;
-            case self::EXPORT_JSON:
-                $exportFile = $this->exportJson();
-                break;
-            case self::EXPORT_HTML:
-                $exportFile = $this->exportHtml();
-                break;
-            default:
-                $exportFile = $this->exportJson();
-                break;
+        try {
+            switch ($exportType) {
+                case self::EXPORT_CSV:
+                    $exportFile = $this->exportCsv();
+                    break;
+                case self::EXPORT_EXCEL:
+                    $exportFile = $this->exportExcel();
+                    break;
+                case self::EXPORT_HTML:
+                    $exportFile = $this->exportHtml();
+                    break;
+                case self::EXPORT_JSON:
+                default:
+                    $exportFile = $this->exportJson();
+                    break;
+            }
+        } catch (\Exception | \Throwable $exception) {
+            $this->_logger->critical($exception->getMessage());
         }
 
         $this->_eventManager->dispatch(
@@ -150,7 +152,7 @@ class Export extends AbstractHelper
                 'report' => $this->reportEntity,
                 'exportType' => $exportType,
                 'parameters' => $parameters,
-                'exportFile' => $exportFile
+                'exportFile' => $exportFile ?: ''
             ]
         );
 
@@ -167,6 +169,12 @@ class Export extends AbstractHelper
      */
     private function exportCsv()
     {
+        $results =  $this->getResult();
+
+        if (count($results) < 1) {
+            return false;
+        }
+
         $filePath = $this->fileNameGenerate('csv');
 
         $this->_fileFolder->touch($filePath);
@@ -174,7 +182,7 @@ class Export extends AbstractHelper
         $this->_csvProcessor
             ->setEnclosure('"')
             ->setDelimiter(',')
-            ->saveData($filePath, $this->getResult());
+            ->saveData($filePath, $results);
 
         return $filePath;
     }
@@ -186,11 +194,17 @@ class Export extends AbstractHelper
      */
     private function exportJson()
     {
+        $results = $this->getResult();
+
+        if (count($results) < 1) {
+            return false;
+        }
+
         $filePath = $this->fileNameGenerate('json');
 
         $this->_fileFolder->touch($filePath);
 
-        $this->_fileFolder->writeFile($filePath, json_encode($this->getResult()));
+        $this->_fileFolder->writeFile($filePath, json_encode($results));
 
         return $filePath;
     }
@@ -202,6 +216,12 @@ class Export extends AbstractHelper
      */
     private function exportHtml()
     {
+        $results = $this->getResult();
+
+        if (count($results) < 1) {
+            return false;
+        }
+
         $filePath = $this->fileNameGenerate('html');
 
         $this->_fileFolder->touch($filePath);
@@ -211,7 +231,7 @@ class Export extends AbstractHelper
 
         $html .= "<thead> " . PHP_EOL;
 
-        foreach ($this->getResult() as $key => $result) {
+        foreach ($results as $key => $result) {
             if ($key == 0) {
                 foreach ($result as $colKey => $col) {
                     $html .= "<th style = 'border: 1px solid #000;min-width: 50px' > " . $colKey . "</th> " . PHP_EOL;
@@ -224,7 +244,7 @@ class Export extends AbstractHelper
 
         $html .= "<tbody> " . PHP_EOL;
 
-        foreach ($this->getResult() as $key => $result) {
+        foreach ($results as $key => $result) {
             $html .= "<tr> " . PHP_EOL;
 
             foreach ($result as $col) {
@@ -241,6 +261,7 @@ class Export extends AbstractHelper
         $this->_fileFolder->writeFile($filePath, $html);
 
         return $filePath;
+
     }
 
     /**
@@ -251,6 +272,12 @@ class Export extends AbstractHelper
      */
     private function exportExcel()
     {
+        $results = $this->getResult();
+
+        if (count($results) < 1) {
+            return false;
+        }
+
         $filePath = $this->fileNameGenerate('xlsx');
 
         $this->_fileFolder->touch($filePath);
@@ -259,7 +286,7 @@ class Export extends AbstractHelper
 
         $page = $sheet->getActiveSheet();
 
-        $page->fromArray($this->getResult());
+        $page->fromArray($results);
 
         (new Xlsx($sheet))->save($filePath);
 
@@ -284,13 +311,7 @@ class Export extends AbstractHelper
             }
         }
 
-        $result = $this->_connection->query($query)->fetchAll();
-
-        if (count($result) < 1) {
-            throw new \Exception('No records were found for this query.');
-        }
-
-        return $result;
+        return $this->_connection->query($query)->fetchAll();
     }
 
     /**
