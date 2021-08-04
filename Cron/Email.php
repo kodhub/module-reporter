@@ -57,12 +57,12 @@ class Email
      */
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
-        Functions $functionsHelper,
-        Export $exportHelper,
-        TransportBuilder $transportBuilder,
-        ReportRepository $reportRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        SenderResolver $senderResolver
+        Functions                $functionsHelper,
+        Export                   $exportHelper,
+        TransportBuilder         $transportBuilder,
+        ReportRepository         $reportRepository,
+        SearchCriteriaBuilder    $searchCriteriaBuilder,
+        SenderResolver           $senderResolver
     )
     {
         $this->logger = $logger;
@@ -106,20 +106,19 @@ class Email
                 if (count($sendEmailList) > 0) {
                     try {
                         $exportFile = $this->exportHelper->export((int)$report->getReportId(), (int)$report->getCronExportType());
-                        foreach ($sendEmailList as $email) {
-                            $this->sendEmail($email, $exportFile, $report->getName(), $report->getDescription());
+                        if (isset($exportFile) && $exportFile != "") {
+                            foreach ($sendEmailList as $email) {
+                                $this->sendEmail($email, $exportFile, $report->getName(), $report->getDescription());
+                            }
+                        } else {
+                            // $this->logger->critical("Export file is empty");
                         }
-
-                    } catch (\Exception $exception) {
-                        $this->logger->critical($exception->getMessage());
-                    } catch (\Throwable $exception) {
+                    } catch (\Exception | \Throwable $exception) {
                         $this->logger->critical($exception->getMessage());
                     }
-
                 } else {
-                    $this->logger->critical('Gönderilecek email bulunamadı.');
+                    $this->logger->critical('The email address to send to was not found.');
                 }
-            } else {
             }
         }
     }

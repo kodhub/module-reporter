@@ -12,7 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "kodhub/module-core": "~1.0.1",
-        "phpoffice/phpspreadsheet": "1.15.0"
+        "phpoffice/phpspreadsheet": "1.15.0",
+        "ext-json": "*"
     },
     "require-dev": {
     },
