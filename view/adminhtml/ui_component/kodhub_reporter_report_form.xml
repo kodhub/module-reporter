@@ -239,6 +239,22 @@
                 </actionDelete>
             </container>
         </container>
+        <field formElement="select" name="connection_name" sortOrder="12">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Report</item>
+                </item>
+                <item name="options" xsi:type="object">Kodhub\Reporter\Model\Config\Source\ConnectionOption</item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Connection Name</label>
+                <dataScope>connection_name</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
     </fieldset>
     <fieldset name="cron">
         <settings>

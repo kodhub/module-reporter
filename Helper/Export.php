@@ -76,7 +76,7 @@ class Export extends AbstractHelper
         parent::__construct($context);
 
         $this->reportRepository = $reportRepository;
-        $this->_connection = $resource->getConnection();
+        $this->_connection = $resource;
         $this->_fileSystem = $fileSystem;
         $this->_directoryList = $directoryList;
         $this->_csvProcessor = $csvProcessor;
@@ -311,7 +311,11 @@ class Export extends AbstractHelper
             }
         }
 
-        return $this->_connection->query($query)->fetchAll();
+
+        return $this->_connection
+            ->getConnectionByName($this->reportEntity->getConnectionName())
+            ->query($query)
+            ->fetchAll();
     }
 
     /**

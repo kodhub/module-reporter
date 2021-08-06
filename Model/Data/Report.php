@@ -277,5 +277,24 @@ class Report extends \Magento\Framework\Api\AbstractExtensibleObject implements 
     {
         return $this->setData(self::QUERY_PARAMETERS, $queryParameters);
     }
+
+    /**
+     * Get connection_name
+     * @return string|null
+     */
+    public function getConnectionName()
+    {
+        return $this->_get(self::CONNECTION_NAME);
+    }
+
+    /**
+     * Set connection_name
+     * @param string $connectionName
+     * @return \Kodhub\Reporter\Api\Data\ReportInterface
+     */
+    public function setConnectionName($connectionName)
+    {
+        return $this->setData(self::CONNECTION_NAME, $connectionName);
+    }
 }
 

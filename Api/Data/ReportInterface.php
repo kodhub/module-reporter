@@ -20,6 +20,7 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const STATUS = 'status';
     const QUERY = 'query';
     const QUERY_PARAMETERS = 'query_parameters';
+    const CONNECTION_NAME = 'connection_name';
     const CRON_EMAIL_LIST = 'cron_email_list';
     const CRON_EXPORT_TYPE = 'cron_export_type';
     const LAST_RUN_DATE = 'last_run_date';
@@ -207,5 +208,18 @@ interface ReportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Kodhub\Reporter\Api\Data\ReportInterface
      */
     public function setUpdatedAt($updatedAt);
+
+    /**
+     * Get connection_name
+     * @return string|null
+     */
+    public function getConnectionName();
+
+    /**
+     * Set connection_name
+     * @param string $connectionName
+     * @return \Kodhub\Reporter\Api\Data\ReportInterface
+     */
+    public function setConnectionName($connectionName);
 }
 
