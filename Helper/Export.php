@@ -225,8 +225,20 @@ class Export extends AbstractHelper
         $filePath = $this->fileNameGenerate('html');
 
         $this->_fileFolder->touch($filePath);
+        
+        $html ='<!doctype html>
+            <html lang="en" >
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport"
+                      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>Document</title>
+            </head>
+            <body>
+        '; 
 
-        $html = "<style>td{padding:10px;border:2px solid #eee!important;font-size:initial}tr{border:1px solid #00}th{background:#000;border:1px solid #000!important;color:#fff;padding:10px}body{font-family:Tahoma}caption{font-size:40px;text-align:left;margin-bottom:20px}</style>
+        $html .= "<style>td{padding:10px;border:2px solid #eee!important;font-size:initial}tr{border:1px solid #00}th{background:#000;border:1px solid #000!important;color:#fff;padding:10px}body{font-family:Tahoma}caption{font-size:40px;text-align:left;margin-bottom:20px}</style>
                 <table><caption> " . __('Report') . " " . $this->reportEntity->getName() . " </caption> " . PHP_EOL;
 
         $html .= "<thead> " . PHP_EOL;
@@ -257,6 +269,8 @@ class Export extends AbstractHelper
         $html .= "<tbody> " . PHP_EOL;
 
         $html .= "</table> ";
+        
+        $html .= "</body></html>";
 
         $this->_fileFolder->writeFile($filePath, $html);
 
