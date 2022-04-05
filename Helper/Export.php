@@ -225,33 +225,25 @@ class Export extends AbstractHelper
         $filePath = $this->fileNameGenerate('html');
 
         $this->_fileFolder->touch($filePath);
-        
-        $html ='<!doctype html>
-            <html lang="en" >
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport"
-                      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-                <meta http-equiv="X-UA-Compatible" content="ie=edge">
-                <title>'. $this->reportEntity->getName() .'</title>
-            </head>
-            <body>
-        '; 
 
-        $html .= "<style>td{padding:10px;border:2px solid #eee!important;font-size:initial}tr{border:1px solid #00}th{background:#000;border:1px solid #000!important;color:#fff;padding:10px}body{font-family:Tahoma}caption{font-size:40px;text-align:left;margin-bottom:20px}</style>
-                <table><caption> " . __('Report') . " " . $this->reportEntity->getName() . " </caption> " . PHP_EOL;
+        $html = $this->getCssStyleForHtmlTemplate();
+
+        $html .= "<table>";
+        $html .= "<caption> " . __('Report') . " " . $this->reportEntity->getName() . " </caption> " . PHP_EOL;
 
         $html .= "<thead> " . PHP_EOL;
+        $html .= "<tr> " . PHP_EOL;
 
         foreach ($results as $key => $result) {
             if ($key == 0) {
                 foreach ($result as $colKey => $col) {
-                    $html .= "<th style = 'border: 1px solid #000;min-width: 50px' > " . $colKey . "</th> " . PHP_EOL;
+                    $html .= "<th scope='col'> " . $colKey . "</th> " . PHP_EOL;
                 }
                 break;
             }
         }
 
+        $html .= "</tr> " . PHP_EOL;
         $html .= "</thead> " . PHP_EOL;
 
         $html .= "<tbody> " . PHP_EOL;
@@ -259,8 +251,8 @@ class Export extends AbstractHelper
         foreach ($results as $key => $result) {
             $html .= "<tr> " . PHP_EOL;
 
-            foreach ($result as $col) {
-                $html .= "<td style = 'border: 1px solid #000;min-width: 50px' > " . $col . "</td> " . PHP_EOL;
+            foreach ($result as $colKey => $col) {
+                $html .= "<td data-label='" . $colKey . "'> " . $col . "</td> " . PHP_EOL;
             }
 
             $html .= "</tr> " . PHP_EOL;
@@ -269,8 +261,6 @@ class Export extends AbstractHelper
         $html .= "<tbody> " . PHP_EOL;
 
         $html .= "</table> ";
-        
-        $html .= "</body></html>";
 
         $this->_fileFolder->writeFile($filePath, $html);
 
@@ -356,6 +346,11 @@ class Export extends AbstractHelper
     {
         $parse = explode('/', $url);
         return $parse[count($parse) - 1];
+    }
+
+    public function getCssStyleForHtmlTemplate()
+    {
+        return '<style>table{border:1px solid #ccc;border-collapse:collapse;margin:0;padding:0;width:100%;table-layout:fixed}table caption{font-size:1.5em;margin:.5em 0 .75em}table tr{background-color:#f8f8f8;border:1px solid #ddd;padding:.35em}table td,table th{word-wrap: break-word;border: 1px solid #ccc;padding:.625em;}table th{font-size:.85em;letter-spacing:.1em;text-transform:uppercase}@media screen and (max-width:600px){table{border:0}table caption{font-size:1.3em}table thead{border:none;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}table tr{border-bottom:5px solid #7d3434;display:block;margin-bottom:.625em}table td{border-bottom:1px solid #ddd;display:block;font-size:.8em;text-align:right}table td::before{content:attr(data-label);float:left;font-weight:700;text-transform:uppercase}table td:last-child{border-bottom:0}}body{font-family:"Open Sans",sans-serif;line-height:1.25}</style>';
     }
 }
 
