@@ -225,8 +225,20 @@ class Export extends AbstractHelper
         $filePath = $this->fileNameGenerate('html');
 
         $this->_fileFolder->touch($filePath);
+        
+        $html ='<!doctype html>
+            <html lang="en" >
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport"
+                      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>'. $this->reportEntity->getName() .'</title>
+            </head>
+            <body>
+        '; 
 
-        $html = $this->getCssStyleForHtmlTemplate();
+        $html .= $this->getCssStyleForHtmlTemplate();
 
         $html .= "<table>";
         $html .= "<caption> " . __('Report') . " " . $this->reportEntity->getName() . " </caption> " . PHP_EOL;
@@ -261,6 +273,8 @@ class Export extends AbstractHelper
         $html .= "<tbody> " . PHP_EOL;
 
         $html .= "</table> ";
+        $html .= "</body> ";
+        $html .= "</html> ";
 
         $this->_fileFolder->writeFile($filePath, $html);
 
